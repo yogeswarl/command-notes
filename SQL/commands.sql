@@ -3,7 +3,9 @@
   -- end sql statements with ;
   -- One statement per line
   -- BETWEEN is inclusive, meaning the beginning and end values are included in the results
-
+  -- SQL assumes that if you divide an integer by an integer, you want to get an integer back.
+  -- ORDER BY always goes after GROUP BY
+  -- in SQL, aggregate functions can't be used in WHERE clauses. 
 
 -- REFERENCES!!!!
 -- Select single/multiple columns
@@ -53,7 +55,29 @@ WHERE birthdate IS NULL;
 SELECT name
 FROM companies
 WHERE name LIKE 'Data%';
+
 -- The _ wildcard will match a single character.
 SELECT name
 FROM companies
 WHERE name LIKE 'DataC_mp';
+-- Aggregate function =  AVG, MAX, MIN, SUM
+SELECT SUM(budget)
+FROM films
+WHERE release_year >= 2010;
+
+-- aliasing can be done using AS
+SELECT 45/10*100.0
+
+-- Sorting using ORDER BY, ORDER BY can also be used to sort on multiple columns. It will sort by the first column specified, then sort by the next
+-- GROUP BY is used to group a resuly by one or more columns.
+SELECT sex, count(*)
+FROM employees
+GROUP BY sex
+ORDER BY count DESC;
+
+
+-- HAVING clause can be used to filter based on the result of an aggregate function.
+SELECT release_year
+FROM films
+GROUP BY release_year
+HAVING COUNT(title) > 10;

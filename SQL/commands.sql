@@ -6,7 +6,7 @@
   -- SQL assumes that if you divide an integer by an integer, you want to get an integer back.
   -- ORDER BY always goes after GROUP BY
   -- in SQL, aggregate functions can't be used in WHERE clauses. 
-
+  -- Field Names should be lowercase, no spaces and singular(because they indicate per record. )
 -- REFERENCES!!!!
 -- Select single/multiple columns
 SELECT col1,col2,... FROM Table_Name;
@@ -81,3 +81,15 @@ SELECT release_year
 FROM films
 GROUP BY release_year
 HAVING COUNT(title) > 10;
+
+
+-- INNER JOIN : results, where the resulting fields has matching values
+SELECT *
+FROM left_table
+INNER JOIN right_table
+ON left_table.id = right_table.id;
+-- INNER JOIN by USING
+SELECT *
+FROM countries
+  INNER JOIN economies
+    USING(code)

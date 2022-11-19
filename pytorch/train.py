@@ -1,0 +1,2 @@
+#Training a neural network 
+ # - 1 epoch is when the neural network has trained all the batches for 1 iteration https://www.noumoles.com/googles-new-aussie-ar-animals-include-adorable-3d-koalas-kangaroos-and-many-more/

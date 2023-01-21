@@ -27,3 +27,13 @@
 ```sh
   gcloud compute tpus tpu-vm list --zone="TPU Zone"
 ```
+
+### scp files to tpu-vm
+```sh
+  gcloud alpha compute tpus tpu-vm scp ~/my-file tpu-name:
+```
+
+### scp files from tpu-vm
+```sh
+ gcloud alpha compute tpus tpu-vm scp tpu-name:~/my-file ~/
+```

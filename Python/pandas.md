@@ -44,6 +44,8 @@ df['one'].mean()
 df['two'].median()
 df['three'].min()
 df['four'].max()
+df['five'].cumsum() #cumulative sum of previous rows 
+df['six'].cummax() #cumulative max of previous rows
 ```
 ### agg (aggregate) method
 can be used to create your own custom functions or apply them to a whole dataframe for each column being passed into as a key value pair dict.

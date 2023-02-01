@@ -32,10 +32,28 @@ few basic commands
   df.index # an index of rows
 ```
 
-adding a new column
+### adding a new column
 
 ``` python
 df['new_col'] = df['one'] + df['two'] 
+```
+### computing stats
+
+``` python
+df['one'].mean()
+df['two'].median()
+df['three'].min()
+df['four'].max()
+```
+### agg (aggregate) method
+can be used to create your own custom functions or apply them to a whole dataframe for each column being passed into as a key value pair dict.
+``` python
+# A custom IQR function
+def iqr(column):
+    return column.quantile(0.75) - column.quantile(0.25)
+    
+# Print IQR of the temperature_c column
+print(sales['temperature_c'].agg(iqr))
 ```
 
 ## Sorting

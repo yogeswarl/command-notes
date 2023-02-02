@@ -83,3 +83,21 @@ condition = df["color"].isin(colors)
 df[condition]
 ```
 
+## drop duplicates
+``` python
+sales = sales.drop_duplicates() #drops if the whole row is duplicated
+sales = sales.drop_duplicates(subset=['col1','col2']) # drops rows if subset columns are duplicate
+```
+
+## value counts
+``` python
+store_count = store['type'].value_counts()
+```
+arguments:
+- normalize=True gives proportion of the values
+- sort=True sorts in ascending
+
+## group by
+``` python
+sales.groupby('type')['weekly_sales'].sum()
+```

@@ -28,3 +28,32 @@ fig,ax = plt.subplots(3,2)
 ax[0,1] #first row second col subplot
 
 ax[0] #considered a 1 d subplot when either row or column is 0
+
+#twin axes to plot 2 different plots sharing the same axes of x
+ax2 = ax.twinx()
+
+#using a plotting function to draw plots
+
+# Define a function called plot_timeseries
+def plot_timeseries(axes, x, y, color, xlabel, ylabel):
+
+  # Plot the inputs x,y in the provided color
+  axes.plot(x, y, color=color)
+
+  # Set the x-axis label
+  axes.set_xlabel(xlabel)
+
+  # Set the y-axis label
+  axes.set_ylabel(ylabel, color=color)
+
+  # Set the colors tick params for y-axis
+  axes.tick_params('y', colors=color)
+
+plot_timeseries(axes, x, y, color, xlabel, ylabel)
+
+
+#annotate a data to point out to important readings
+# 1.xy is the value tuple
+# 2. xytext is the place where the text is placed
+# 3.arrowprops is the style of arrow
+ax2.annotate(">1 degree", xy=(pd.Timestamp('2015-10-06'),1),xytext=(pd.Timestamp('2008-10-06'),-0.2), arrowprops={'arrowstyle':'->','color':'gray'})

@@ -57,3 +57,23 @@ plot_timeseries(axes, x, y, color, xlabel, ylabel)
 # 2. xytext is the place where the text is placed
 # 3.arrowprops is the style of arrow
 ax2.annotate(">1 degree", xy=(pd.Timestamp('2015-10-06'),1),xytext=(pd.Timestamp('2008-10-06'),-0.2), arrowprops={'arrowstyle':'->','color':'gray'})
+
+## bar charts and histogram
+
+#single bar chart with label
+ax.bar(df.index, df["col1"], label="col1")
+
+# Stack bars for "col2" on top with label "col2"
+ax.bar(df.index, df["col2"], bottom=df["col1"],label="col2")
+
+# Stack bars for "col3" on top of that with label "col3"
+ax.bar(df.index,df["col1"],bottom=df["col2"] + df["col1"],label='col2')
+
+# Display the legend
+ax.legend()
+
+
+# plotting a histogram with step and bins
+ax.hist(df["col1"],histtype='step',label='col1',bins=5)
+
+plt.show()

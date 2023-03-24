@@ -76,4 +76,12 @@ ax.legend()
 # plotting a histogram with step and bins
 ax.hist(df["col1"],histtype='step',label='col1',bins=5)
 
+#scatter plot
+ax.scatter(df["col1"],df["col2"],c=df.index)
 plt.show()
+
+#saving figures
+plt.style.use("ggplot") #various other formats such as 'grayscale' 'seaborn-colorblind' are available
+fig.set_size_inches([5,10]) #setting size of the image
+fig.savefig('figurename.png',dpi=300,quality=90)
+

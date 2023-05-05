@@ -896,3 +896,122 @@ federal government: 1
 ALERT: New NASA story!
 
 ```
+
+# Transforming
+- translation Sample:
+```
+prompt = f"""
+Translate the following English text to Spanish: \ 
+```Hi, I would like to order a blender```
+"""
+response = get_completion(prompt)
+print(response)
+```
+output
+```
+Hola, me gustaría ordenar una licuadora.
+```
+- Tone transformation Sample
+  ``` python
+  prompt = f"""
+    Translate the following from slang to a business letter: 
+    'Dude, This is Joe, check out this spec on this standing lamp.'
+    """
+  response = get_completion(prompt)
+  print(response)
+  ```
+  Output:
+  ```
+  Dear Sir/Madam,
+
+  I am writing to bring to your attention a standing lamp that I believe may be of interest to you. Please find attached the specifications for your review.
+
+  Thank you for your time and consideration.
+
+  Sincerely,
+
+  Joe
+  ```
+- format conversion sample
+  ``` python
+  data_json = { "resturant employees" :[ 
+    {"name":"Shyam", "email":"shyamjaiswal@gmail.com"},
+    {"name":"Bob", "email":"bob32@gmail.com"},
+    {"name":"Jai", "email":"jai87@gmail.com"}
+  ]}
+
+  prompt = f"""
+  Translate the following python dictionary from JSON to an HTML \
+  table with column headers and title: {data_json}
+  """
+  response = get_completion(prompt)
+  print(response)
+  ```
+  Output:
+  ``` html
+    <table>
+      <caption>Restaurant Employees</caption>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Shyam</td>
+          <td>shyamjaiswal@gmail.com</td>
+        </tr>
+        <tr>
+          <td>Bob</td>
+          <td>bob32@gmail.com</td>
+        </tr>
+        <tr>
+          <td>Jai</td>
+          <td>jai87@gmail.com</td>
+        </tr>
+      </tbody>
+    </table>
+  ```
+- spellcheck/grammer check sample
+``` python 
+text = f"""
+Got this for my daughter for her birthday cuz she keeps taking \
+mine from my room.  Yes, adults also like pandas too.  She takes \
+it everywhere with her, and it's super soft and cute.  One of the \
+ears is a bit lower than the other, and I don't think that was \
+designed to be asymmetrical. It's a bit small for what I paid for it \
+though. I think there might be other options that are bigger for \
+the same price.  It arrived a day earlier than expected, so I got \
+to play with it myself before I gave it to my daughter.
+"""
+prompt = f"proofread and correct this review: ```{text}```"
+response = get_completion(prompt)
+print(response)
+```
+Output:
+```
+I got this for my daughter's birthday because she keeps taking mine from my room. Yes, adults also like pandas too. She takes it everywhere with her, and it's super soft and cute. However, one of the ears is a bit lower than the other, and I don't think that was designed to be asymmetrical. Additionally, it's a bit small for what I paid for it. I think there might be other options that are bigger for the same price. On the positive side, it arrived a day earlier than expected, so I got to play with it myself before I gave it to my daughter.
+```
+**Prompt in APA style**
+Sample:
+
+``` python
+prompt = f"""
+proofread and correct this review. Make it more compelling. 
+Ensure it follows APA style guide and targets an advanced reader. 
+Output in markdown format.
+Text: ```{text}```
+"""
+response = get_completion(prompt)
+display(Markdown(response))
+```
+Output:
+```
+Title: A Soft and Cute Panda Plush Toy for All Ages
+Introduction: As a parent, finding the perfect gift for your child's birthday can be a daunting task. However, I stumbled upon a soft and cute panda plush toy that not only made my daughter happy but also brought joy to me as an adult. In this review, I will share my experience with this product and provide an honest assessment of its features.
+Product Description: The panda plush toy is made of high-quality materials that make it super soft and cuddly. Its cute design is perfect for children and adults alike, making it a versatile gift option. The toy is small enough to carry around, making it an ideal companion for your child on their adventures.
+Pros: The panda plush toy is incredibly soft and cute, making it an excellent gift for children and adults. Its small size makes it easy to carry around, and its design is perfect for snuggling. The toy arrived a day earlier than expected, which was a pleasant surprise.
+Cons: One of the ears is a bit lower than the other, which makes the toy asymmetrical. Additionally, the toy is a bit small for its price, and there might be other options that are bigger for the same price.
+Conclusion: Overall, the panda plush toy is an excellent gift option for children and adults who love cute and cuddly toys. Despite its small size and asymmetrical design, the toy's softness and cuteness make up for its shortcomings. I highly recommend this product to anyone looking for a versatile and adorable gift option.
+```

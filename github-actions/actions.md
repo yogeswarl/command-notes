@@ -36,3 +36,32 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 ```
+
+
+### running an action that requires other actions to be completed. 
+
+``` yaml
+name: dependant
+
+on: push
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - run: date
+  windows:
+    runs-on: windows-latest
+    steps:
+    - run: date
+  macos:
+    runs-on: macos-latest
+    steps:
+    - run: date
+  depends:
+    needs: [ubuntu, windows, macos]
+    runs-on: ubuntu-latest
+    steps:
+    - run: date 
+```
+

@@ -11,7 +11,6 @@ git add . # add all edited files to the staging area
 
 
 #### update a date
-
 ```sh
 GIT_AUTHOR_DATE=$(date -d 'date') GIT_COMMITTER_DATE="date" git commit -md "message"
 ```

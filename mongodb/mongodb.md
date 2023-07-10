@@ -45,4 +45,16 @@
     - Many to many relationships.
     - Data is updated frequently.
     - Data is too large.
+    - you want to avoid data duplication.
+
+### Scaling a data model
+ - An effective data modelling will prevent from leading to issues with query and write performances and with too much memory being used.
+
+## Common schema anti-patterns
+- Massive arrays
+- Massive number of collections
+- Bloated documents
+- Unnecessary indexes
+- queries without indexes
+**note:** Use tools such such as Data explorer and performance advisor to identify and fix anti-patterns issues.
 

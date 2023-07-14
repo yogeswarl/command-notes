@@ -10,11 +10,17 @@ git add . # add all edited files to the staging area
 ```
 
 
-#### update a date
+#### commit with a specific date
 ```sh
 GIT_AUTHOR_DATE=$(date -d 'date') GIT_COMMITTER_DATE="date" git commit -md "message"
-```
 
+
+```
+#### change a commits date
+```sh
+$date_timestamp="in a date format"  # example format: Fri Jul 14 04:12:13 2023 -0500
+GIT_COMMITTER_DATE="$date_timestamp" GIT_AUTHOR_DATE="$date_timestamp" git commit --amend --no-edit --date "$date_timestamp"
+```
 #### commit changes to git
 ``` sh
 git commit # opens the built in text editor to write a short message about the commit

@@ -140,3 +140,29 @@ const b: Contact = clone<Contact,Contact>(a);
 ```
 
 From the above example, Typescript infers the type of the argument and return type from the function call. So we can omit the type in the function call.
+
+
+`keyof` is used to get the keys that are only available in an object.
+**Example:**
+```ts
+interface Contact {
+  id: number;
+  name: string;
+  phone: number;
+  email: string;
+}
+type ContactField = keyof Contact
+function getValue<T,U extends keyof T>(source: T, key: keyof U):  {
+  return source[key];
+}
+const getKeyValue = getValue<Contact, ContactField>(contact, 'name');
+```
+
+You can use the javascript `typeof` operator to get the type of a variable. But in typescript you can simply use the `typeof` keyword to make sure any variable follows the same type.
+```ts
+const myNum = {min: 1, max: 5}
+
+function save(source: typeof myNum){
+  // do something
+}
+```

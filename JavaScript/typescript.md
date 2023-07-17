@@ -1,0 +1,142 @@
+# Typescript Notes
+
+## What is Typescript?
+- Typescript(ts) is a superset of Javascript used to add static typing to Javascript. It is compiled to Javascript and can be used in place of Javascript.
+- To use Typescript simple install it with npm `npm install -g typescript`.
+- To compile a Typescript file to Javascript run `tsc filename.ts` in the command line. This will create a Javascript file with the same name as the Typescript file. To watch for changes to the Typescript file and recompile when changes are made run `tsc filename.ts -w`.
+- To use Typescript, You need to add some configuration in the `tsconfig.json` file.
+- To convert an existing Javascript to typescript simply change the file extension from `.js` to `.ts` and add the configuration to the `tsconfig.json` file.
+- To use types of third party library install them from npm. For example to use the `Jquery` with Typescript simply install `npm install @types/jquery` and import it in the Typescript file with `import * as $ from 'jquery'`.
+
+Assigning types to a variable:
+```ts
+let variableName: type = value;
+```
+Typescript has the following types:
+- `number` for numbers
+- `string` for strings
+- `boolean` for booleans
+- `any` for any type
+- `number[]` for an array of numbers
+- `string[]` for an array of strings
+- `boolean[]` for an array of booleans
+- `any[]` for an array of any type
+- `enum` for a set of named constants
+- `void` for a function that does not return anything
+- `never` for a function that never returns anything
+- `object` for an object
+- `object[]` for an array of objects
+
+Example:
+```ts
+let variableName: type = value;
+let num: number = 5;
+let str: string = 'string';
+let bool: boolean = true;
+let anyType: any = 5;
+let numArray: number[] = [1, 2, 3];
+let strArray: string[] = ['string1', 'string2', 'string3'];
+let boolArray: boolean[] = [true, false, true];
+```
+
+To create an object with custom type:
+```ts
+Interface Address {
+  street: string;
+  city: string;
+  state: string;
+  zip: number;
+}
+```
+create an object with the Address type
+```ts
+let address: Address = {
+  street: 'street',
+  city: 'city',
+  state: 'state',
+  zip: 12345
+}
+```
+
+You can add a custom type to another custom type by using the extends keyword
+
+
+```ts
+Interface Contact extends Address{
+  name: string;
+  phone: number;
+  email: string;
+  date?: Date;  // optional property 
+  clone(): Contact; // adding a function to an interface
+}
+
+let contact: Contact = {
+  name: 'name',
+  phone: 1234567890, //defining a string here will throw a compile time error.
+  email: 'email', // note: we can omit date here if we want
+  street: 'street', // we can also add the properties of the Address type here
+  city: 'city',
+  state: 'state',
+  zip: 12345
+}
+```
+
+Typescript offers a feature to create a variable that can consist of only a certain set of values. This is done with the `enum` keyword.
+
+**Usage:**
+```ts
+enum Color {Red, Green, Blue}; // Color is now a type that can only have the values Red, Green, and Blue
+let color: Color = Color.Red; // color can only be Red, Green, or Blue
+```
+
+**Type alias** is defined with the `type` keyword followed by a variable name to reference it to a normal type.
+
+**Usage:**
+```ts
+type Name = string; // Name is now a type that can be used in place of string
+```
+`Type` alias can be used as a replacement to an `enum`:
+``` ts
+type Color = 'Red' | 'Green' | 'Blue'; // Color is now a type that can only have the values Red, Green, and Blue
+```
+Types can also have different interfaces or different types together:
+```ts
+type ContactBirthDate  = Date | string;
+type AddressableContact = Contact & Address;
+```
+```
+```
+
+**Functions** can also have a type safe mechanism.
+**Example:**
+```ts
+function clone(source: Contact): Contact {
+  return object.apply({}, source);
+}
+
+const a: Contact = {id: 1, name: 'name', phone: 1234567890, email: 'email'};
+const b: Contact = clone(a);
+```
+
+Generics are used to define a function that can take any type as an argument and return the same type as the argument.
+**Example:**
+```ts
+function clone<T>(source: T): T {
+  return object.apply({}, source);
+}
+
+const a: Contact = {id: 1, name: 'name', phone: 1234567890, email: 'email'};
+const b: Contact = clone(a);
+```
+Now if you wanted to mention different types for the argument and return type you can do so by mentioning the type in the function call.
+**Example:**
+```ts
+function clone<T1,T2>(source: T1): T2 {
+  return object.apply({}, source);
+}
+
+const a: Contact = {id: 1, name: 'name', phone: 1234567890, email: 'email'};
+const b: Contact = clone<Contact,Contact>(a);
+```
+
+From the above example, Typescript infers the type of the argument and return type from the function call. So we can omit the type in the function call.

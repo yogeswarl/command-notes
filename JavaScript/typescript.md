@@ -166,3 +166,59 @@ function save(source: typeof myNum){
   // do something
 }
 ```
+Indexed access types are used to get the type of a property in an object.
+```ts
+type ContactStatus = 'New' | 'Active' | 'Inactive';
+interface Contact {
+  id: number;
+  name: string;
+  status: ContactStatus;
+  address: string;
+}
+interface ContactEvent {
+  contactId: contact["id"];
+}
+interface contactStatusChangedEvent extends ContactEvent {
+  OldStatus: contact["status"];
+  NewStatus: contact["status"];
+}
+type ContactField = Contact['name']
+
+function handleEvent<T extends keyof contactEvents>(eventName: T, handler: (evt => contactEvents[T])=> void){
+  if event === "statusChanged" {
+    handler({contactId: 1, OldStatus: 'New', NewStatus: 'Active'});
+  } 
+}
+```
+
+Some more typescript features for dynamic type setting:
+
+`Record`: Used to create a type with a set of properties of a certain type.
+```ts
+type Contact = Record<'id' | 'name' | 'phone' | 'email', string>; // can only contain the properties id, name, phone, and email of type string
+```
+
+`Partial`: Used to create a type with all the properties of another type but with all the properties set to optional.
+```ts
+type Contact = Partial<Contact>; // can contain all the properties of Contact but all the properties are optional
+```
+`Omit` : Used to create a type with all the properties of another type but with the specified properties omitted.
+```ts
+type Contact = Omit<Contact, 'id'>; // can contain all the properties of Contact but the id property is omitted
+```
+`Exclude` : Similar to Omit. 
+```ts
+type Contact = Exclude<Contact, 'id'>; // can contain all the properties of Contact but the id property is omitted
+```
+The main difference between `Omit` and `Exclude`: Omit type creates a new type by removing a property from a type. The Exclude type creates a new type by removing a constituent from a union type.
+
+`Pick` : Used to create a type with only the specified properties of another type.
+```ts
+type Contact = Pick<Contact, 'id' | 'name'>; // can only contain the properties id and name of Contact
+```
+
+`Required` : Used to create a type with all the properties of another type but with all the properties set to required.
+```ts
+type Contact = Required<Contact>; // can contain all the properties of Contact but all the properties are required
+```
+

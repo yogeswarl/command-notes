@@ -11,4 +11,8 @@ atlas setup --clusterName myAtlasClusterEDU --provider AWS --currentIp --skipSam
 
 Atlas can be used as an interactive UI to create, update and delete databases, collections and documents.
 Its a unified data platform to handle mongodb databases over the cloud with 3 different tiers, for shared and dedicatedd clusters.
+## Login to a cluster using atlas cli
 
+``` sh 
+atlas auth login
+```

@@ -58,3 +58,26 @@
 - queries without indexes
 **note:** Use tools such such as Data explorer and performance advisor to identify and fix anti-patterns issues.
 
+
+## MongoDB URI
+- MongoDB URI is a string that defines the connection parameters to MongoDB.
+- It is a string in the following format:
+    - `mongodb://[username:password@]host1[:port1][/[database][?options]]`
+- The URI is composed of the following parts:
+    - `mongodb://` is a required prefix to identify that this is a string in the standard connection format.
+    - `username:password@` are optional. If specified, the client will attempt to log in to a database after connecting to a database server.
+    - `host1` is the only required part of the URI. It identifies a server address to connect to.
+    - `:port1` is optional and defaults to :27017 if not provided.
+    - `/database` is the name of the database to login to and thus is only relevant if the username:password@ syntax is used. If not specified the "admin" database will be used by default.
+    - `?options` are connection options. Note that if database is absent there is still a / required between the last host and the ? introducing the options. Options are name=value pairs and the pairs are separated by "&". For backwards compatibility, ";" is accepted as a separator in addition to "&", but should be considered as deprecated.
+
+
+## Install MongoDB for nodejs
+- Install mongodb driver for nodejs
+``` sh
+npm install mongodb
+```
+
+
+
+

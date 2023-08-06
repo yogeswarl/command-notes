@@ -128,3 +128,17 @@ const insertDocuments = function(db, callback) {
   });
 }
 ```
+
+### Find
+- Find all documents
+``` js
+const findDocuments = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Find documents with eq
+  collection.find({field: value})
+  // Find documents with eq and in
+  collection.find({field: {$in: [value1,value2]}})
+  
+}
+```

@@ -159,7 +159,26 @@ const findDocuments = function(db, callback) {
   collection.find({field1: value1, field2: value2})
   // Find documents with or
   collection.find({$or: [{field1: value1}, {field2: value2}]})
-
-
 }
 ```
+### Replace
+To replace, find and confirm the document to be replaced and then replace it.
+- find one document 
+``` js
+const findDocument = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Find some documents
+  collection.findOne({_id: objectId('5d1e1b3b5c6b2e1f0c6b2e1f')})
+}
+```
+- Replace a document
+``` js
+const replaceDocument = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('documents');
+  // Replace the document with id 5d1e1b3b5c6b2e1f0c6b2e1f
+  collections.replaceOne({_id: objectId('5d1e1b3b5c6b2e1f0c6b2e1f')}, {field:value, field2: value2})
+}
+```
+

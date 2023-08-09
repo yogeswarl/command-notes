@@ -136,9 +136,24 @@ const findDocuments = function(db, callback) {
   // Get the documents collection
   const collection = db.collection('documents');
   // Find documents with eq
-  collection.find({field: value})
+  collection.find({field: value}) // finds documents irrespective of it being an array or scalar value.
+  // Find documents with eq and elemMatch
+  collection.find({field: {$elemMatch: {field: value}}}) // finds documents with array field matching the query.
   // Find documents with eq and in
   collection.find({field: {$in: [value1,value2]}})
-  
+  // Find documents with eq and nin
+  collection.find({field: {$nin: [value1,value2]}}) 
+  // Find documents with gt
+  collection.find({field: {$gt: value}})
+  // Find documents with gte
+  collection.find({field: {$gte: value}})
+  // Find documents with lt
+  collection.find({field: {$lt: value}})
+  // Find documents with lte
+  collection.find({field: {$lte: value}})
+  // Find documents with ne
+  collection.find({field: {$ne: value}})
+  // Find documents with and
+
 }
 ```

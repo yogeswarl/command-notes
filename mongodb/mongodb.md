@@ -182,3 +182,20 @@ const replaceDocument = function(db, callback) {
 }
 ```
 
+### update
+- update a document field with set operator
+``` js
+const collection = db.collection('documents');
+collection.updateOne({field: value},{$set: {field2: value2}})
+```
+- update a document field with push
+``` js
+const collection = db.collection('documents');
+collections.updateOne({ _id: ObjectId("5e8f8f8f8f8f8f8f8f8f8f8") }, { $push: { field: value } })
+```
+- update a document field with set and add a new document if not present
+``` js
+collection.updateOne({field: value},{$set: {field2: value2}},{upsert: true})
+```
+```
+

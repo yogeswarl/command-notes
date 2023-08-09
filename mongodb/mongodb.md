@@ -154,6 +154,12 @@ const findDocuments = function(db, callback) {
   // Find documents with ne
   collection.find({field: {$ne: value}})
   // Find documents with and
+  collection.find({$and: [{field1: value1}, {field2: value2}]})
+  // shorthand for and
+  collection.find({field1: value1, field2: value2})
+  // Find documents with or
+  collection.find({$or: [{field1: value1}, {field2: value2}]})
+
 
 }
 ```

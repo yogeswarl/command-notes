@@ -197,5 +197,42 @@ collections.updateOne({ _id: ObjectId("5e8f8f8f8f8f8f8f8f8f8f8") }, { $push: { f
 ``` js
 collection.updateOne({field: value},{$set: {field2: value2}},{upsert: true})
 ```
+### find and modify
+ - find and modify a document
+ ``` js
+ const collection = db.collection('documents'); 
+ collection.findAndModify({query:{field: value},{update:{$set: {field2: value2}}},new: true})
+ ```
+
+ ### updateMany
+ - update many documents
+ ``` js
+  const collection = db.collection('documents');
+  collection.updateMany({field: value},{$set: {field2: value2}})  
+```
+### deleteOne
+- delete one document
+``` js
+const collection = db.collection('documents');
+collection.deleteOne({field: value})
+``` 
+### deleteMany
+- delete many documents
+``` js
+const collection = db.collection('documents');
+collection.deleteMany({field: value})
+```
+
+### Sorting and limiting query results
+
+- Sort the results by a field in ascending order
+``` js
+const collection = db.collection('documents');
+collection.find({field: value}).sort({field: 1})  // 1 for ascending order,  -1 for descending order
+```
+- Limit the number of results
+``` js
+const collection = db.collection('documents');
+collection.find({field: value}).sort({field:-1}).limit(5)
 ```
 

@@ -236,3 +236,22 @@ const collection = db.collection('documents');
 collection.find({field: value}).sort({field:-1}).limit(5)
 ```
 
+### Projection
+- Projection is used to select only necessary data from the document. By default **`_id`** field is always included in the result. You can set 0 to exclude the **`_id`** field.
+``` js
+const collection = db.collection('documents');
+collection.find({field: value},{field2: 1, field3: 0}) // 1 for including the field, 0 for excluding the field
+collection.find({field: {$gt:value}},{field2: 1, field3: 0}) // adding conditions to your field selection
+```
+
+### CountDocuments
+- Count the number of documents
+``` js
+const collection = db.collection('documents');
+collection.countDocuments({field: value})
+```
+- Count the number of documents with a value inside an array
+``` js
+const collection = db.collection('documents');
+collection.countDocuments({field: {$elemMatch: {field: value}}})
+```

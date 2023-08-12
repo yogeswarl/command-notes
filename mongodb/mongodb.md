@@ -291,3 +291,32 @@ collection.aggregate([{$count: "count"}])
 const collection = db.collection('documents');
 collection.aggregate([{$match:{field:{$gte: value}}},{$out: "newCollection"}])
 ```
+
+### indexes
+- get the number of indexes used
+``` js  
+const collection = db.collection('documents');
+collection.getIndexes()
+```
+- create a single field index
+A single field index is an index on a single field.
+A multikey index is an index on an array field.
+``` js
+const collection = db.collection('documents');
+collection.createIndex({field: 1}) // 1 for ascending order, -1 for descending order
+collection.createIndex({field: 1},{unique: true}) // create a single field unique index
+```
+- create a compound index
+``` js
+const collection = db.collection('documents');
+collection.createIndex({field1: 1, field2: -1}) // 1 for ascending order, -1 for descending order
+```
+- delete an index
+``` js
+const collection = db.collection('documents');
+collectionn.hideIndex('indexName') // better to hide than delete as it is costly to recreate the index
+collection.dropIndex('indexName') 
+collection.dropIndex(['indexName1', 'indexName2']) // drop multiple indexes
+collection.dropIndex({field1: 1, field2: -1}) // delete index by key
+collections.deleteIndexes() // delete all indexes except the default index on _id
+```

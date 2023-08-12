@@ -255,3 +255,39 @@ collection.countDocuments({field: value})
 const collection = db.collection('documents');
 collection.countDocuments({field: {$elemMatch: {field: value}}})
 ```
+
+
+### aggregate
+- aggregate documents using match and group
+- `$match` acts like `find` and `$group` acts like `group by` in sql
+- Using match reduces the number of documents required to group inturn leading to lesser processing time. 
+``` js
+const collection = db.collection('documents');
+collection.aggregate([{$match: {field: value}},{$group: {_id: "$field", count: {$sum: 1}}},{$sort: {count: -1}}])
+```
+- `$sort` and `$limit` can be used to sort and limit the results
+``` js
+const collection = db.collection('documents');
+collection.aggregate([{$sort: {count: -1}},{$limit: 5}])
+```
+- `$project` can be used to project the fields
+``` js
+const collection = db.collection('documents');
+collection.aggregate([{$project: {field: 1, field2: 1}}])
+```
+- `$set` can be used to add or update a value in a field
+``` js
+const collection = db.collection('documents');
+collection.aggregate([{$set: {field: value}}])
+```
+- `$count` can be used to count the number of documents
+``` js
+const collection = db.collection('documents');
+collection.aggregate([{$count: "count"}])
+```
+
+- `$out` can be used to store the results in a new collection
+``` js
+const collection = db.collection('documents');
+collection.aggregate([{$match:{field:{$gte: value}}},{$out: "newCollection"}])
+```

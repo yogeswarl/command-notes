@@ -135,3 +135,49 @@ sns.catplot(data=df,x='SAT_AVG_ALL', kind='point', row='Degree_Type',row_order=[
 ``` python 
 sns.lmplot(data=df, x='SAT_AVG_ALL', y='Tuition', col="Ownership", row='Degree_Type', row_order=['Graduate', 'Bachelors'], hue='WOMENONLY', col_order=inst_ord)
 ```
+
+## PairGrid and PairPlot
+- PairGrids are subplots that show the relationships between two variables in a dataset.
+- PairGrids don't require X and Y variables to be specified, They are instead denoted as a `vars` array.
+- Create a PairGrid with a scatter plot for fatal_collisions and premiums
+``` python
+g = sns.PairGrid(df, vars=["fatal_collisions", "premiums"])
+g2 = g.map(plt.scatter)
+```
+- Create another PairGrid but plot a histogram on the diagonal and scatter plot on the off diagonal.
+``` python
+g = sns.PairGrid(df)
+g2 = g.map_diag(plt.hist)
+g3 = g.map_offdiag(plt.scatter)
+```
+## JointGrid and JointPlot
+- JointGrids are a subplot type that show the marginal distributions of two variables along with plotting their joint distribution.
+- Create a JointGrid that shows a scatter plot using the Durbin-Watson and Insurance_losses columns
+``` python
+g = sns.JointGrid(data=df, x='Durbin-Watson', y='Insurance_losses')
+g2 = g.plot(sns.regplot, sns.distplot)
+```
+- Create a jointplot similar to the JointGrid
+``` python
+sns.jointplot(data=df, x='Durbin-Watson', y='Insurance_losses', kind='reg')
+# Plot temp vs. total_rentals as a regression plot
+sns.jointplot(x="temp", y="total_rentals", kind='reg', data=df, order=2, xlim=(0, 1)) # order = 2 will plot a polynomial fit regression line and xlim will set the x axis limit
+```
+- Jointplot can be compbined with KDE Plot to create a more informative overlay
+``` python
+g = sns.jointplot(x="temp", y="registered", kind='scatter', data=df, marginal_kws=dict(bins=10))
+g.plot_joint(sns.kdeplot)
+```
+
+# What plot to choose
+## Univariate Distribution Analysis
+- `**displot()**` -  best place to start for univariate distributions
+- `rugplot(),kdeplot(),ecdfplot()` are useful alternatives
+
+## Regression Analysis
+- `**lmplot()**` - Performs regression analysis and supports facetting
+- `regplot(), residplot()` are useful alternatives
+
+## Categorical Plot
+- `**catplot()**` - Explore categorical data
+- `boxplot(), stripplot(), swarmplot(), barplot(), countplot()` are useful alternatives

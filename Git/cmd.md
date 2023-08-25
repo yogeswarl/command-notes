@@ -34,3 +34,13 @@ git commit --amend --no-edit # amend without edit
 git commit --amend -m "with message"
 git commit --amend  # opens a text editor
 ```
+
+#### push to a remote repository
+``` sh
+git push origin master # push to the master branch of the origin remote repository
+```
+
+#### pull from a remote repository
+``` sh
+git pull origin master # pull from the master branch of the origin remote repository
+```

@@ -57,6 +57,19 @@ def iqr(column):
 # Print IQR of the temperature_c column
 print(sales['temperature_c'].agg(iqr))
 ```
+- agg() method can be used with a list or a dictionary
+- agg() method can be used with a list of functions or a dictionary of functions
+- agg() method applies to named columns
+``` python
+df.group(['col1','col2']).agg({'col1':'mean','col2':'max'}) # different functions to different columns
+df.group(['col1']).agg(
+  mean_rating = ('rating','mean')
+  std_price = ('price','std')
+  median_year = ('year','median')
+  )
+   # different functions to different columns
+```
+
 
 ## Sorting
 pass column name/s as a string or list 
@@ -101,3 +114,15 @@ arguments:
 ``` python
 sales.groupby('type')['weekly_sales'].sum()
 ```
+
+### astype
+``` python
+df['col1'] = df['col1'].astype('int')
+```
+various Python Datatypes that pandas accepts:
+- int
+- float
+- str
+- bool
+- datetime
+- category

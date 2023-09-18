@@ -126,3 +126,65 @@ various Python Datatypes that pandas accepts:
 - bool
 - datetime
 - category
+
+### filling missing values
+- general rule of thumb is to drop values if missing values is <= 5% of the total data
+``` python
+# Count the number of missing values in each column
+print(planes.isna().sum())
+# Find the five percent threshold
+threshold = len(planes) * 0.05
+# Create a filter
+cols_to_drop = planes.columns[planes.isna().sum() <= threshold]
+# Drop missing values for columns below the threshold
+planes.dropna(subset=cols_to_drop, inplace=True)
+print(planes.isna().sum())
+```
+
+- if missing values is more than 5% of the total data then fill the missing values with mean or median
+``` python
+# Calculate median plane ticket prices by Airline
+airline_prices = planes.groupby("Airline")["Price"].median()
+
+print(airline_prices)
+
+# Convert to a dictionary
+prices_dict = airline_prices.to_dict()
+
+# Map the dictionary to missing values of Price by Airline
+planes["Price"] = planes["Price"].fillna(planes["Airline"].map(prices_dict))
+
+# Check for missing values
+print(planes.isna().sum())
+```
+
+### find datatypes
+``` python
+# Filter the DataFrame for object columns
+non_numeric = planes.select_dtypes("object")
+
+# Loop through columns
+for cols in non_numeric.columns:
+  
+  # Print the number of unique values
+  print(f"Number of unique values in {cols} column: ", non_numeric[cols].nunique()) 
+
+```
+### Handling Outliers
+``` python
+# Find the 75th and 25th percentiles
+price_seventy_fifth = planes["Price"].quantile(0.75)
+price_twenty_fifth = planes["Price"].quantile(0.25)
+
+# Calculate iqr
+prices_iqr = price_seventy_fifth - price_twenty_fifth
+
+# Calculate the thresholds
+upper = price_seventy_fifth + (1.5 * prices_iqr)
+lower = price_twenty_fifth - (1.5 * prices_iqr)
+
+# Subset the data
+planes = planes[(planes["Price"] > lower) & (planes["Price"] < upper)]
+
+print(planes["Price"].describe())
+```

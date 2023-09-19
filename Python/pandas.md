@@ -17,6 +17,7 @@ arguments
 - skipfooter = number of rows to skip from the bottom of the dataframe
 - na_values =  set to consider values to be not a number(NA)
 - encoding = encoding (use utf-8 when found with mix of characters)
+- parse_dates = Column to parse as date
 
 
 ## Basic DataFrame Commands
@@ -30,6 +31,8 @@ few basic commands
   df.values #a 2-d numpy array of all values
   df.columns # an index of columns with their names
   df.index # an index of rows
+  pd.to_datetime(df['col1']) #converts a column to datetime
+  df.dtypes #returns datatypes of each column
 ```
 
 ### adding a new column

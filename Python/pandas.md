@@ -33,6 +33,9 @@ few basic commands
   df.index # an index of rows
   pd.to_datetime(df['col1']) #converts a column to datetime
   df.dtypes #returns datatypes of each column
+  df['col1'].unique() #returns unique values in a column
+  df['col1'].nunique() #returns number of unique values in a column
+  df['col1'].nbytes() #returns number of bytes used by a column
 ```
 
 ### getting date from a datetime column
@@ -124,7 +127,10 @@ arguments:
 
 ## group by
 ``` python
-sales.groupby('type')['weekly_sales'].sum()
+sales.groupby('type')['weekly_sales'].sum() # efficient way to calculate weekly sales for each type.
+sales.groupby(by=['item1','item2']).size() # return size of each values grouped as a series
+sales.groupby(by=['item1','item2']).count() # return count of each values grouped as a series
+sales.groupby(by=['item1','item2']).mean() # return mean of each values grouped as a series
 ```
 
 ### astype
@@ -217,4 +223,11 @@ pd.crosstab(planes["Source"], planes["Destination"],values=planes["Price"], aggf
 labels = ['low', 'medium', 'high']
 bins = [0, 200, 400, 600]
 pd.cut(df['col1'], bins=bins, labels=labels)
+```
+
+### Creating categorical data columns
+- creating categorical data saves number of bytes used by a column
+``` python
+series1 = pd.Series(['a','b','c','a'], dtype="category")
+series2 = pd.Categorical(['a','b','c','a'], categories=['a','b','c'], ordered=True) # ordered=True will order the categories
 ```

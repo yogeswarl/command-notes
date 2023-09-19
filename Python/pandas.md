@@ -35,6 +35,15 @@ few basic commands
   df.dtypes #returns datatypes of each column
 ```
 
+### getting date from a datetime column
+``` python
+df['col1'].dt.year
+df["col1"].dt.month
+df["col1"].dt.day
+df["col1"].dt.weekday
+df["col1"].dt.hour
+
+```
 ### adding a new column
 
 ``` python
@@ -190,4 +199,22 @@ lower = price_twenty_fifth - (1.5 * prices_iqr)
 planes = planes[(planes["Price"] > lower) & (planes["Price"] < upper)]
 
 print(planes["Price"].describe())
+```
+
+
+### replacing string in columns
+``` python
+# Replace "Dr." with empty string ""
+df["name"] = df["name"].str.replace("Dr.","")
+```
+### cross tab
+``` python
+# Create crosstab
+pd.crosstab(planes["Source"], planes["Destination"],values=planes["Price"], aggfunc="median")
+```
+### set labels for data in a column
+``` python
+labels = ['low', 'medium', 'high']
+bins = [0, 200, 400, 600]
+pd.cut(df['col1'], bins=bins, labels=labels)
 ```

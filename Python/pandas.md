@@ -231,3 +231,39 @@ pd.cut(df['col1'], bins=bins, labels=labels)
 series1 = pd.Series(['a','b','c','a'], dtype="category")
 series2 = pd.Categorical(['a','b','c','a'], categories=['a','b','c'], ordered=True) # ordered=True will order the categories
 ```
+
+### Updating categorical values
+- updating single values can be done with rename
+``` python
+# Create the my_changes dictionary
+my_changes = {'Maybe?':'Maybe'}
+
+# Rename the categories listed in the my_changes dictionary
+dogs["likes_children"] = dogs['likes_children'].cat.rename_categories(my_changes)
+
+# Use a lambda function to convert all categories to uppercase using upper()
+dogs["likes_children"] =  dogs["likes_children"].cat.rename_categories(lambda c: c.upper())
+
+# Print the list of categories
+print(dogs['likes_children'].cat.categories)
+```
+
+- collapsing multiple categories into one needs to be done with replace
+``` python
+# Collapse the categories into 'one' and 'other'
+new_changes = {'medium-black':'medium', 'medium-brown':'medium', 'medium-gray':'medium', 'medium-red':'medium', 'medium-white':'medium'}
+dogs["likes_children"] = dogs["likes_children"].replace(new_changes)
+dogs["likes_children"] = dogs["likes_children"].astype('category')
+print(dogs["likes_children"].cat.categories)
+```
+- printing category
+``` python
+
+print(dogs.loc[dogs.index == 23807, 'coat'])
+# Find the count of male and female dogs who have a "long" coat
+print(dogs.loc[dogs['coat'] == 'long', 'sex'].value_counts())
+# Print the mean age of dogs with a breed of "English Cocker Spaniel"
+print(dogs.loc[dogs['breed'] == 'English Cocker Spaniel', 'age'].mean())
+# Count the number of dogs that have "English" in their breed name
+print(dogs[dogs["breed"].str.contains("English", regex=False)].shape[0])
+```

@@ -168,6 +168,40 @@ sns.jointplot(x="temp", y="total_rentals", kind='reg', data=df, order=2, xlim=(0
 g = sns.jointplot(x="temp", y="registered", kind='scatter', data=df, marginal_kws=dict(bins=10))
 g.plot_joint(sns.kdeplot)
 ```
+## Seaborn methods
+- `**set**` - set the aesthetic style of the plots
+- `**set_style**` - set the background of the plot
+``` python
+sns.set('paper')
+sns.set('talk')
+sns.set('poster')
+sns.set('notebook')
+sns.set(font_scale=1.5)
+sns.set_style('whitegrid') # set the background of the plot
+sns.set_style('ticks') # set the background of the plot
+sns.set_style('darkgrid') # set the background of the plot
+sns.set_style('white') # set the background of the plot
+sns.set_style('dark') # set the background of the plot
+```
+- common methods:
+``` python
+# Adjust the color
+ax = sns.catplot(
+  x="Free internet", y="Score",
+  hue="Traveler type", kind="bar",
+  data=reviews,
+  palette=sns.color_palette("Set2")
+)
+# create a 3 column plot for each user continent
+ax = sns.catplot(x="Traveler type", col="User continent", col_wrap=3,    kind="count", palette=sns.color_palette("Set1"), data=reviews)
+# Add a title
+ax.fig.suptitle("Hotel Score by Traveler Type and Free Internet Access")
+# Update the axis labels
+ax.set_axis_labels("Free Internet", "Average Review Rating")
+
+# Adjust the starting height of the graphic
+plt.subplots_adjust(top=.93)
+```
 
 # What plot to choose
 ## Univariate Distribution Analysis
@@ -181,3 +215,4 @@ g.plot_joint(sns.kdeplot)
 ## Categorical Plot
 - `**catplot()**` - Explore categorical data
 - `boxplot(), stripplot(), swarmplot(), barplot(), countplot()` are useful alternatives
+

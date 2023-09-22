@@ -267,3 +267,25 @@ print(dogs.loc[dogs['breed'] == 'English Cocker Spaniel', 'age'].mean())
 # Count the number of dogs that have "English" in their breed name
 print(dogs[dogs["breed"].str.contains("English", regex=False)].shape[0])
 ```
+### creating categorical codes
+- create codes from 1 to n for each category
+``` python
+codes = df['col1'].cat.codes
+names= df['col1']
+name_map = dict(zip(codes, names))
+#reverting to previous values
+df['code'].map(name_map)
+```
+- Boolean coding
+``` python
+df['col codes'] = np.where(df['col'].str.contains("value",regex=False),1,0) #adds 1 for True and 0 for False
+used_cars["van_code"].value_counts() # value counts will return only 1 and 0
+```
+
+- One hot encoding with Pandas
+``` python
+# Create the dummy variables
+df_onehot = pd.get_dummies(df, columns=['col1','col2'], prefix="")
+df_onehot.head() # each category gets 1 column from the original column with 1 for True and 0 for False
+# should be used when the amount of categories are less in value
+```

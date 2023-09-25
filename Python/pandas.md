@@ -19,6 +19,42 @@ arguments
 - encoding = encoding (use utf-8 when found with mix of characters)
 - parse_dates = Column to parse as date
 
+### read from other sources.
+ - read from excel
+ ``` python
+  pd.read_excel('Filename', sheet_name='Sheet1', skiprows=2, usecols='A:C', na_values=['NA'], parse_dates=['Date'])
+  ```
+  - read from json
+  ``` python
+  pd.read_json('Filename', orient='columns', lines=True)
+  ```
+  - read from sql
+  ``` python
+  from sqlalchemy import create_engine
+  engine = create_engine('sqlite:///:memory:')  
+  df = pd.read_sql("SELECT * FROM table_name", engine)
+  ```
+  - read from url
+  ``` python
+  df = pd.read_csv('https://raw.githubusercontent.com/justmarkham/DAT8/master/data/chipotle.tsv', sep='\t')
+  ```
+  - read from pickle
+  ``` python
+  df = pd.read_pickle('Filename')
+  ```
+  - read from stata
+  ``` python
+  df = pd.read_stata('Filename')
+  ```
+  - read from sas
+  ``` python
+  df = pd.read_sas('Filename')
+  ```
+  - read from hdf5
+  ``` python
+  df = pd.read_hdf('Filename')
+  ```
+
 
 ## Basic DataFrame Commands
 few basic commands 

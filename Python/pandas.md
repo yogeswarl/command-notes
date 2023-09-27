@@ -147,11 +147,17 @@ condition = df["color"].isin(colors)
 df[condition]
 ```
 
-## drop duplicates
+## duplicates and dropping them
+- drop_duplicates() method drops the duplicate rows
+- duplicated() method returns a boolean series with True for duplicate rows
+- drop_duplicates() method can be used with subset keyword to drop duplicates based on a subset of columns
+- Both duplicated() and drop_duplicates() method havea `subset`, `keep` and `inplace` keyword
 ``` python
+sales = sales.duplicated() #returns a boolean series
 sales = sales.drop_duplicates() #drops if the whole row is duplicated
 sales = sales.drop_duplicates(subset=['col1','col2']) # drops rows if subset columns are duplicate
 ```
+
 
 ## value counts
 ``` python
@@ -324,4 +330,23 @@ used_cars["van_code"].value_counts() # value counts will return only 1 and 0
 df_onehot = pd.get_dummies(df, columns=['col1','col2'], prefix="")
 df_onehot.head() # each category gets 1 column from the original column with 1 for True and 0 for False
 # should be used when the amount of categories are less in value
+```
+
+### creating ranges for categories
+- 
+```python
+# Create ranges for categories
+label_ranges = [0, 60, 180, np.inf]
+label_names = ['short', 'medium', 'long']
+
+# Create wait_type column
+airlines['wait_type'] = pd.cut(airlines['wait_min'], bins = label_ranges, 
+                                labels = label_names)
+
+# Create mappings and replace
+mappings = {'Monday':'weekday', 'Tuesday':'weekday', 'Wednesday': 'weekday', 
+            'Thursday': 'weekday', 'Friday': 'weekday', 
+            'Saturday': 'weekend', 'Sunday': 'weekend'}
+
+airlines['day_week'] = airlines['day'].replace(mappings)
 ```

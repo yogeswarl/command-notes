@@ -350,3 +350,61 @@ mappings = {'Monday':'weekday', 'Tuesday':'weekday', 'Wednesday': 'weekday',
 
 airlines['day_week'] = airlines['day'].replace(mappings)
 ```
+
+### Remapping categories
+``` python
+from thefuzz import process
+# Iterate through categories
+for cuisine in categories:  
+  # Create a list of matches, comparing cuisine with the cuisine_type column
+  matches = process.extract(cuisine, restaurants['cuisine_type'], limit=len(restaurants.cuisine_type))
+
+  # Iterate through the list of matches
+  for match in matches:
+     # Check whether the similarity score is greater than or equal to 80
+    if match[1] >= 80:
+      # If it is, select all rows where the cuisine_type is spelled this way, and set them to the correct cuisine
+      restaurants.loc[restaurants['cuisine_type'] == match[0]] = cuisine
+      
+# Inspect the final result
+print(restaurants['cuisine_type'].unique())
+```
+
+### Generating, Comparing and Linking pairs with Record Linkage
+- `pip install recordlinkage` to install record linkage package
+- Generating Pairs
+``` python
+import recordlinkage
+# Create an indexer and object and find possible pairs
+indexer = recordlinkage.Index()
+indexer.block('columnName') # blocks the column to find pairs
+pairs = indexer.index(df1, df2) #two dataframes to find pairs from
+# returns a pandas multiIndex object containing all possible pairs
+```
+- Comparing Pairs
+``` python
+# Create a comparison object
+comp_cl = recordlinkage.Compare()
+comp_cl.exact('col1', 'col2', label='col1') # exact comparison
+compl_cl.string('col1','col2',threshold=0.85,label='col1') # string comparison with a threshold
+# Compute the comparison of the pairs
+potential_matches = comp_cl.compute(pairs, df1, df2)
+```
+- Finding the matches
+``` python
+matches = potential_matches[potential_matches.sum(axis = 1) >= n]
+```
+
+- Linking the matches
+``` python
+# Get values of second column index of matches
+matching_indices = matches.index.get_level_values(1) # can also be done with .get_level_values('indexName') for second column
+
+# Subset df2 based on non-duplicate values
+non_dup = df2[~df2.index.isin(matching_indices)]
+
+# Append non_dup to restaurants
+new_df = df1.append(df2)
+print(new_df)
+```
+

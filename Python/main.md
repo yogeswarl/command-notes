@@ -47,3 +47,14 @@ datetime.fromtimestamp(ts) # from a timestamp is used to convert a given timesta
 - %M	2 digit minute (0-59)
 - %S	2 digit second (0-59)
 
+### representing different timezones
+``` python 
+from datetime import datetime, timezone,timedelta
+dt = datetime(2015, 10, 1, 12, 30, 0, tzinfo=timezone.utc) # set time to utc
+dt = datetime(2015, 10, 1, 12, 30, 0, tzinfo=timezone.utc)
+aedt = timezone(timedelta(hours=11))
+dt = datetime(2017, 10, 1, 15, 26, 26, tzinfo=aedt) # creating timezone aware datetime object
+dt = dt.astimezone(timezone.utc) # move a date to a different timezone
+dt = dt.replace(tzinfo=timezone.utc) # updates the timezone as utc
+```
+

@@ -81,6 +81,12 @@ df["col1"].dt.month
 df["col1"].dt.day
 df["col1"].dt.weekday
 df["col1"].dt.hour
+```
+### converting to a timezone
+`dt.tz_convert()` converts to a new timezone, whereas `dt.tz_localize()` sets a timezone in the first place.
+``` python
+df['col1'].dt.tz_localize('US/Central',ambiguous='NaT') #ambiguous='NaT' will return NaT for ambiguous values
+df['col1'].dt.tz_convert('US/Eastern')
 
 ```
 ### adding a new column

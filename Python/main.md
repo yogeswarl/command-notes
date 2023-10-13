@@ -58,3 +58,34 @@ dt = dt.astimezone(timezone.utc) # move a date to a different timezone
 dt = dt.replace(tzinfo=timezone.utc) # updates the timezone as utc
 ```
 
+
+### Docstrings:
+- add a docstring with triple quotes
+``` python
+def count_letter(content, letter):
+  """ Count the number of times `letter` appears in `content`.
+  """
+  if (not isinstance(letter, str)) or len(letter) != 1:
+    raise ValueError('`letter` must be a single character string.')
+  return len([char for char in content if char == letter])
+```
+- get a docstring 
+``` python
+count_letter.__doc__
+help(count_letter)
+```
+- build a tooltip for the docstring
+``` python
+def build_tooltip(function):
+  """ Create a tooltip for any function that shows the 
+  function's docstring.
+  """
+  # Use 'inspect' to get the docstring
+  docstring = inspect.getdoc(function)
+  border = '#' * 28
+  print(f'{border}\n{function.__name__}: {docstring}\n{border}\n')
+print(build_tooltip(count_letter)) 
+print(build_tooltip(range))
+print(build_tooltip(print))
+```
+

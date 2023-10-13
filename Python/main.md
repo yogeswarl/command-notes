@@ -89,3 +89,31 @@ print(build_tooltip(range))
 print(build_tooltip(print))
 ```
 
+### context managers
+- context managers are used to manage resources, such as opening and closing files, in your code.
+- context managers use the with statement and automatically close the file again once the code inside the context manager is done.
+- context managers are great for when you're working with resources that need to be cleaned up or closed after you're done with them.
+
+``` python
+import contextlib,time
+@contextlib.contextmanager
+def in_dir(directory):
+  """Change current working directory to `directory`,
+  allow the user to run some code, and change back.
+
+  Args:
+    directory (str): The path to a directory to work in.
+  """
+  current_dir = os.getcwd()
+  os.chdir(directory)
+
+  # Add code that lets you handle errors
+  try:
+    yield
+  # Ensure the directory is reset,
+  # whether there was an error or not
+  finally:
+    os.chdir(current_dir)
+with in_dir('C:/Users/.../Python'):
+  print(os.listdir())
+```

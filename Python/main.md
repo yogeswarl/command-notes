@@ -117,3 +117,25 @@ def in_dir(directory):
 with in_dir('C:/Users/.../Python'):
   print(os.listdir())
 ```
+### basic decorators
+- decorators are functions that modify other functions.
+- decorators allow you to define reusable building blocks that can change or extend the behavior of other functions.
+- decorators wrap other functions and are defined with the @ symbol.
+- decorators have their own syntax, using @ (this makes them different to regular functions).
+
+``` python
+def print_before_and_after(func): #decorator is just a normal function that has a child function to do some work
+  def wrapper(*args):
+    print('Before {}'.format(func.__name__))
+    # Call the function being decorated with *args
+    func(*args)
+    print('After {}'.format(func.__name__))
+  # Return the nested function
+  return wrapper
+
+@print_before_and_after #calling the decorator
+def multiply(a, b):
+  print(a * b)
+
+multiply(5, 10)
+```

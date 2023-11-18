@@ -64,6 +64,7 @@ docker rm <container-id>
 docker ps -aq | xargs docker rm #remove all containers
 docker rm -f <image-name>/ <container-id> # stop and remove container
 ```
+
 - remove image
 ```bash
 docker rmi <image-id>
@@ -97,3 +98,20 @@ docker run --rm --entrypoint  sh -v /tmp/container/sample_file.txt:/tmp/hello.tx
 # in the case of a non-existing file in the host volume, the container will create a directory instead of a file. 
 ``` 
 **Always map a volume to a directory, not a file.**
+
+
+- Login to docker hub and push an image to the registry
+*Best practice*: Name your image with your docker id and the repo name with a versioning tag.
+`format` = <docker-id>/<repo-name>:<version>
+```bash
+docker login
+docker tag <old-image-name> <new-image-name> #tag the image 
+docker push <new-image-name> 
+```
+ - create a new version for your docker image
+```bash
+docker build -t <docker-id>/<repo-name>:<version> .
+docker push <docker-id>/<repo-name>:<version>
+```
+
+

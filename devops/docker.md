@@ -40,3 +40,38 @@ docker stop <container-id>
 docker ps #list running containers
 docker ps --all #list all containers
 ```
+
+- build a custom container
+```bash
+docker build -t <docker-id>/<repo-name>:<version> .
+docker build -t <docker-id>/<repo-name>:latest -f app.DockerFile 
+```
+
+- get an interactive bash
+```bash
+docker exec -it <container-id> bash
+```
+
+- stop a container 
+```bash
+docker stop <container-id> #stops gracefully
+docker stop -t 0 <container-id> #stops immediately
+```
+
+- remove container
+```bash
+docker rm <container-id>
+docker ps -a | xargs docker rm #remove all containers
+```
+- remove image
+```bash
+docker rmi <image-id>
+docker images -a | xargs docker rmi #remove all images
+```
+
+- kill containers
+```bash
+docker kill $(docker ps -q) #kills all running containers
+docker kill <container-id> # kills one container
+```
+

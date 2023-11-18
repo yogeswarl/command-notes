@@ -43,8 +43,8 @@ docker ps --all #list all containers
 
 - build a custom container
 ```bash
-docker build -t <docker-id>/<repo-name>:<version> .
-docker build -t <docker-id>/<repo-name>:latest -f app.DockerFile 
+docker build -t <docker-id>/<repo-name>:<version> . #the dot is important (it specifies where to look for the Dockerfile)
+docker build -t <docker-id>/<repo-name>:latest -f app.DockerFile .  # use a custom name
 ```
 
 - get an interactive bash
@@ -61,12 +61,13 @@ docker stop -t 0 <container-id> #stops immediately
 - remove container
 ```bash
 docker rm <container-id>
-docker ps -a | xargs docker rm #remove all containers
+docker ps -aq | xargs docker rm #remove all containers
+docker rm -f <image-name>/ <container-id> # stop and remove container
 ```
 - remove image
 ```bash
 docker rmi <image-id>
-docker images -a | xargs docker rmi #remove all images
+docker images -aq | xargs docker rmi #remove all images
 ```
 
 - kill containers
@@ -75,3 +76,24 @@ docker kill $(docker ps -q) #kills all running containers
 docker kill <container-id> # kills one container
 ```
 
+- bind a container port to a host port
+```bash
+docker run -p 5001:5000 <image-name>
+```
+
+- bind a container volume to a host volume
+```bash
+# -v <host-volume>:<container-volume>
+# -rm removes the container after it exits
+# --entrypoint overrides the default entrypoint: in the example below, we are using an ubuntu shell 
+# -c runs the command
+
+# the below command echoes hello to a file in the host volume /tmp/container
+docker run --rm --entrypoint  sh -v /tmp/container:/tmp/ ubuntu -c "echo 'hello' > /tmp/hello.txt" 
+
+# assume you have a file called sample_file.txt in the host volume /tmp/container
+touch /tmp/container/sample_file.txt
+docker run --rm --entrypoint  sh -v /tmp/container/sample_file.txt:/tmp/hello.txt ubuntu -c "cat /tmp/hello.txt" 
+# in the case of a non-existing file in the host volume, the container will create a directory instead of a file. 
+``` 
+**Always map a volume to a directory, not a file.**

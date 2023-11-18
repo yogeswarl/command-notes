@@ -12,3 +12,31 @@ Docker is a tool designed to make it easier to create, deploy, and run applicati
 
 
 ## Dockerfile
+
+
+## Starting a Docker container
+- The Long way
+``` bash
+docker create hello-world
+docker start -a <container-id> #first 3 letter should do.
+```
+- the Short way
+```bash
+docker run -it --rm -p 8080:80 nginx
+```
+
+- get logs
+```bash
+docker logs <container-id>
+```
+
+- stop a container
+```bash
+docker stop <container-id>
+```
+
+- list containers
+```bash
+docker ps #list running containers
+docker ps --all #list all containers
+```

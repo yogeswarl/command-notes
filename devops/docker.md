@@ -115,3 +115,19 @@ docker push <docker-id>/<repo-name>:<version>
 ```
 
 
+## Debugging Docker containers
+- Use Docker stats to get the cpu and memory usage of a container
+```bash
+docker stats # get the stats of all running containers
+docker stats <container-id> # get the stats of a specific container
+```
+
+- use docker inspect to get a json representation of the container
+```bash
+docker inspect <container-id> # get info about the container
+```
+
+- use docker top to get the top command executed inside your container
+```bash 
+docker top <container-id> # get the running processes in the container
+```

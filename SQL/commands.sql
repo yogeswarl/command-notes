@@ -66,7 +66,7 @@ FROM films
 WHERE release_year >= 2010;
 
 -- aliasing can be done using AS
-SELECT 45/10*100.0
+SELECT 45/10*100.0 AS value;
 
 -- Sorting using ORDER BY, ORDER BY can also be used to sort on multiple columns. It will sort by the first column specified, then sort by the next
 -- GROUP BY is used to group a resuly by one or more columns.

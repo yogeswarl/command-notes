@@ -40,3 +40,30 @@ npm install svelte
 <h1>This is a Nested Component </h1>
 ```
 **Note**: Component names are always capitalized in Svelte to distinguish them from regular HTML elements.<br/>Any styles in App.svelte will not be leaked to Nested.svelte, and vice versa. This is because each component is compiled in isolation, not in the context of its parent component.
+
+
+## HTML Tags
+``` html
+<script>
+	let string = `this string contains some <strong>HTML!!!</strong>`;
+</script>
+
+<p>{@html string}</p>
+<!-- this string contains some HTML!!! -->
+```
+## Assigning Variables to on click event handlers.
+``` html 
+<script>
+	let count = 0;
+
+	function increment() {
+		count += 1;
+	}
+</script>
+
+<button on:click={increment}>
+	Clicked {count}
+	{count === 1 ? 'time' : 'times'}
+</button>
+```
+

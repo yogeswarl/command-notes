@@ -132,5 +132,19 @@ npm install svelte
 </ul>
 ```
 
+## Declaring Props
+``` html
+<!-- Nested.svelte -->
+<script>
+	export let name;
+</script>
 
+<p>Hello {name}!</p>
 
+<!-- App.svelte -->
+<script>
+	import Nested from './Nested.svelte';
+</script>
+
+<Nested name="world" />
+```

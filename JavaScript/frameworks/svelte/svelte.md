@@ -27,7 +27,7 @@ npm install svelte
 ```
 
 ## Nested Components
----
+
 - App.svelte
 ``` html
 <script>
@@ -147,4 +147,27 @@ npm install svelte
 </script>
 
 <Nested name="world" />
+```
+
+## Spread props
+``` html
+<!-- Nested.svelte -->
+<script>
+	export let name;
+	export let age;
+</script>
+
+<p>Hello {name}!</p>
+<p>You are {age} years old.</p>
+
+<!-- App.svelte -->
+<script>
+	import Nested from './Nested.svelte';
+	const props = {
+		name: 'world',
+		age: 42
+	};
+</script>
+
+<Nested {...props} />
 ```

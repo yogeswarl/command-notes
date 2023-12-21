@@ -414,3 +414,18 @@ new_df = df1.append(df2)
 print(new_df)
 ```
 
+- Random Sampling
+``` python
+# Randomly sample 5 numbers into sampled_df
+sampled_df = df.sample(n=5, random_state=1500)
+
+# set frac to return a proportion of the dataframe
+sampled_df = df.sample(frac=0.5, random_state=1500)
+```
+
+- systematic sampling
+``` python
+# Calculate the increment size (i_size)
+shuffled =  df.sample(frac=1)
+shuffled = shuffled.reset_index(drop=True).reset_index()
+```

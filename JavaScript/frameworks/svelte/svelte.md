@@ -258,3 +258,44 @@ npm install svelte
 
 <!-- Creates different colors from the colors array  -->
 ```
+
+## Keyed each blocks
+``` html
+<script>
+	const todos = [
+		{ id: 1, text: 'Learn Svelte' },
+		{ id: 2, text: 'Build something awesome' },
+		{ id: 3, text: 'Deploy it' }
+	];
+</script>
+
+<ul>
+	{#each todos as todo (todo.id)}
+		<li>{todo.text}</li>
+	{/each}
+</ul>
+```
+
+## Await blocks
+``` html
+<script>
+	let promise = null;
+
+	function handleClick() {
+		promise = fetch('https://jsonplaceholder.typicode.com/todos/1')
+			.then(r => r.json());
+	}
+</script>
+
+<button on:click={handleClick}>
+	Click to fetch
+</button>
+
+{#await promise}
+	<p>...waiting</p>
+{:then value}
+	<p>The value is {value.title}</p>
+{:catch error}
+	<p style="color: red">{error.message}</p>
+{/await}
+```

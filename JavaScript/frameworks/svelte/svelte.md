@@ -299,3 +299,35 @@ npm install svelte
 	<p style="color: red">{error.message}</p>
 {/await}
 ```
+
+## DOM events
+``` html
+<script>
+	let m = { x: 0, y: 0 };
+
+	function handleMove(event) {
+		m.x = event.clientX;
+		m.y = event.clientY;
+	}
+</script>
+
+<div on:pointermove={handleMove}>
+	The pointer is at {m.x} x {m.y}
+</div>
+<!-- Writing the svelte function inline -->
+<div on:pointermove = {(e)=> {
+	m= {x : clientX, y : clientY}
+	}}>
+
+<style>
+	div {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		padding: 1rem;
+	}
+</style>
+
+```

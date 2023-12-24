@@ -429,3 +429,20 @@ sampled_df = df.sample(frac=0.5, random_state=1500)
 shuffled =  df.sample(frac=1)
 shuffled = shuffled.reset_index(drop=True).reset_index()
 ```
+
+- Stratified Sampling
+``` python
+ stratified = df.groupby('col1', group_keys=False).sample(n=15,random_state=1500)
+ stratified_counts = stratified['col1'].value_counts(normalize=True) # returns the proportion of each category.
+ ```
+
+ - Weighted Sampling
+ ``` python
+  # Calculate the sampling weights
+weights = df['col1'].value_counts(normalize=True)
+
+# Set the weights parameter
+weighted = df.sample(n=15, 
+                     random_state=1,
+                     weights=weights)
+```

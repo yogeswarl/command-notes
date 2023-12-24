@@ -14,6 +14,48 @@ The next step is to simply say `npm start`. This command will run the project.
   "express":"*", // fetches the latest version available
 }
 ```
+## install a package
+`npm i express@1.2.3` to install a specific version of a package
+`npm i express@latest` to install the latest version of a package
+`npm i -g express` to install a package globally
+`npm i -D express` to install a package as a dev dependency
+
+## uninstall a package
+`npm uninstall express` to uninstall a package
+`npm uninstall -g express` to uninstall a package globally
+`npm uninstall -D express` to uninstall a package as a dev dependency
+
+## update a package
+`npm update express` to update a package
+`npm update -g express` to update a package globally
+`npm update -D express` to update a package as a dev dependency
+
+## list all packages
+`npm list` to list all packages
+`npm list -g` to list all packages globally
+`npm list -D` to list all packages as a dev dependency
+
+## list outdated packages
+`npm outdated` to list all outdated packages
+`npm outdated -g` to list all outdated packages globally
+`npm outdated -D` to list all outdated packages as a dev dependency
+
+## list all packages with their dependencies
+`npm list --depth=0` to list all packages with their dependencies
+`npm list --depth=1` to list all packages with their dependencies upto 1 level
+`npm list --depth=2` to list all packages with their dependencies upto 2 level
+
+## list all packages with their dependencies in json format
+`npm list --json` to list all packages with their dependencies in json format
+`npm list --json --depth=0` to list all packages with their dependencies in json format
+`npm list --json --depth=1` to list all packages with their dependencies in json format upto 1 level
+`npm list --json --depth=2` to list all packages with their dependencies in json format upto 2 level
+
+## Find available versions of a package and package details
+`npm view express versions` to view all available versions of a package
+`npm view express` to view package details
+
+
 
 ## Basic structure of package.json
 ``` json 

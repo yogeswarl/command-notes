@@ -454,3 +454,55 @@ top_cluster = df[top_condition]
 df[top_condition] = df[top_condition].cat.remove_unused_categories()
 df_clust = df.groupby('col1', group_keys=False).apply(lambda x: x.sample(min(len(x), 2)))
 ```
+
+- Relative Error between sample size and population size
+``` python
+pop_mean = df['col1'].mean()
+sample_mean = df['col1'].sample(n=50, random_state=1).mean()
+mean_diff = 100 * abs(sample_mean - pop_mean) / pop_mean
+```
+**Note**: For smaller sample means, the relative error decreases substantially for every increase to the sample size. For larger sample means, the relative error decreases at a much slower rate.
+
+- Replicating Sampling
+``` python
+# Create an empty list
+mean_attritions = []
+# Loop 500 times to create 500 sample means
+for i in range(500):
+	mean_attritions.append(
+    	attrition_pop.sample(n=60)['Attrition'].mean()
+	)
+
+# Create a histogram of the 500 sample means
+plt.hist(mean_attritions,bins=16)
+plt.show()
+```
+- Exact sampling Appropriate
+```python
+dice = expand_grid(
+    {'die1':[1,2,3,4,5,6,7,8],
+     'die2':[1,2,3,4,5,6,7,8],
+     'die3':[1,2,3,4,5,6,7,8],
+     'die4':[1,2,3,4,5,6,7,8],
+     'die5':[1,2,3,4,5,6,7,8]
+    }
+)
+dice['mean_roll'] = (dice['die1'] + dice['die2'] + dice['die3'] + dice['die4'] + dice['die5']) / 5
+dice['mean_roll'] = dice['mean_roll'].astype('category')
+
+# Draw a bar plot of mean_roll
+dice['mean_roll'].value_counts(sort=False).plot(kind='bar')
+
+# replicating once
+five_rolls = np.random.choice(list(range(1,9)),size=5,replace=True)
+
+# replicated 1000's of times``
+sample_means_1000 = []
+for i in range(1000):
+    sample_means_1000.append(
+  		np.random.choice(list(range(1, 9)), size=5, replace=True).mean()
+    )
+
+# Draw a histogram of sample_means_1000 with 20 bins
+plt.hist(sample_means_1000,bins=20)
+```

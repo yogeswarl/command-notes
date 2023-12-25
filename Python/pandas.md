@@ -442,7 +442,15 @@ shuffled = shuffled.reset_index(drop=True).reset_index()
 weights = df['col1'].value_counts(normalize=True)
 
 # Set the weights parameter
-weighted = df.sample(n=15, 
-                     random_state=1,
-                     weights=weights)
+weighted = df.sample(n=15, random_state=1, weights=weights)
+```
+
+- Cluster Sampling
+``` python
+import random;
+top_3 = random.sample(sample_cols, k=3)
+top_condition = df['col1'].isin(top_3)
+top_cluster = df[top_condition]
+df[top_condition] = df[top_condition].cat.remove_unused_categories()
+df_clust = df.groupby('col1', group_keys=False).apply(lambda x: x.sample(min(len(x), 2)))
 ```

@@ -356,3 +356,32 @@ npm install svelte
 - self — only trigger handler if event.target is the element itself
 - trusted — only trigger handler if event.isTrusted is true, meaning the event was triggered by a user action rather than because some JavaScript called element.dispatchEvent(...)
 
+
+## Component Event Dispatching
+``` html
+<!-- App.svelte -->
+<script>
+	import Inner from './Inner.svelte';
+
+	function handleMessage(event) {
+		alert(event.detail.text);
+	}
+</script>
+
+<Inner on:message={handleMessage} />
+
+<!-- Inner.svelte -->
+<script>
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	function sayHello() {
+		dispatch('message', {
+			text: 'Hello!'
+		});
+	}
+	<button on:click={sayHello}>
+	Click to say hello
+	</button>
+</script>

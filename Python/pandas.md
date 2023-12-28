@@ -506,3 +506,39 @@ for i in range(1000):
 # Draw a histogram of sample_means_1000 with 20 bins
 plt.hist(sample_means_1000,bins=20)
 ```
+
+
+## Bootstrap Sampling
+``` python
+# a single bootstrap sample
+spotify_1_resample = spotify_sample.sample(frac=1,replace=True)
+
+mean_danceability_1 = np.mean(spotify_1_resample['danceability'])
+
+## 1000 bootstrap samples
+mean_danceability_1000 = []
+for i in range(1000):
+	mean_danceability_1000.append(
+        np.mean(spotify_sample.sample(frac=1, replace=True)['danceability'])
+	)
+
+# Draw a histogram of the resample means
+plt.hist(mean_danceability_1000)
+plt.show()
+
+```
+- for bootstrap distribution, the mean is often not the best measure of center. instead use std deviation and multiply it with `sqrt` of the sample size
+``` python
+# Calculate the population std dev popularity
+pop_sd = spotify_population['popularity'].std(ddof=0)
+
+# Calculate the original sample std dev popularity
+samp_sd = spotify_sample['popularity'].std(ddof=1)
+
+# Calculate the sampling dist'n estimate of std dev popularity
+samp_distn_sd = np.std(sampling_distribution,ddof=1) * np.sqrt(5000)
+
+# Calculate the bootstrap dist'n estimate of std dev popularity
+boot_distn_sd = np.std(bootstrap_distribution,ddof=1) * np.sqrt(5000)
+
+```

@@ -427,3 +427,57 @@ npm install svelte
 <Inner on:message />
 
 ```
+
+## Binding
+``` html
+<script>
+	let name = 'world';
+	let a = 1;
+	let yes = false;
+</script>
+
+<input bind:value={name}>
+<p>Hello {name.toUpperCase()}!</p>
+<!--  svelte takes care of handling numerics and texts when you bind -->
+<label>
+	<input type="number" bind:value={a} min="0" max="10" />
+	<input type="range" bind:value={a} min="0" max="10" />
+</label>
+
+
+<!--  example with a checkbox -->
+<label>
+	<input type="checkbox" bind:checked={yes} />
+	Yes! Send me regular email spam
+</label>
+
+{#if yes}
+	<p>
+		Thank you. We will bombard your inbox and sell
+		your personal details.
+	</p>
+{:else}
+	<p>
+		You must opt in to continue. If you're not
+		paying, you're the product.
+	</p>
+{/if}
+
+<button disabled={!yes}>Subscribe</button>
+
+
+<!-- Binding to select -->
+<select
+	bind:value={selected}
+	on:change={() => answer = ''}
+>
+
+<!-- Binding groups to segrated multiple values of checkbox and radio -->
+		<input
+			type="checkbox"
+			name="flavours"
+			value={flavour}
+			bind:group={flavours}
+		/>
+```
+

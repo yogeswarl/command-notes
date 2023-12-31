@@ -473,11 +473,18 @@ npm install svelte
 >
 
 <!-- Binding groups to segrated multiple values of checkbox and radio -->
-		<input
-			type="checkbox"
-			name="flavours"
-			value={flavour}
-			bind:group={flavours}
-		/>
+	{#each ['cookies and cream', 'mint choc chip', 'raspberry ripple'] as flavour}
+		<label>
+			<input type="checkbox" name="flavours" value={flavour} bind:group={flavours}/>
+			{flavour}
+		</label>
+	{/each}
+
+<!-- Multiple Select -->
+	<select multiple bind:value={flavours}>
+		{#each ['cookies and cream', 'mint choc chip', 'raspberry ripple'] as flavour}
+			<option>{flavour}</option>
+		{/each}
+	</select>
 ```
 

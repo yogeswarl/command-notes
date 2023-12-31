@@ -486,5 +486,9 @@ npm install svelte
 			<option>{flavour}</option>
 		{/each}
 	</select>
+
+<!-- Text area binding -->
+<textarea bind:value={value}></textarea> <!-- Places where value is same name and value are same, they can be used once like bind:value -->
+
 ```
 

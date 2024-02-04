@@ -56,7 +56,7 @@
 - Bloated documents
 - Unnecessary indexes
 - queries without indexes
-**note:** Use tools such such as Data explorer and performance advisor to identify and fix anti-patterns issues.
+**note:** Use tools such as Data explorer and performance advisor to identify and fix anti-patterns issues.
 
 
 ## MongoDB URI
@@ -100,6 +100,42 @@ client.connect(function(err) {
 
   client.close();
 });
+```
+
+
+## mongosh and commands
+- Mongosh is a the cmd tool to access MongoDB via the terminal/powershell.
+
+### Command List
+``` bash 
+use DB_Name # database to use
+db           # get currently used DB.
+show dbs     # show all dbs in the cluster. 
+db.runCommand( { listCollections: 1 } ) # Get all the collections and their explanations for the current db
+
+# A DB can be created by simply inserting a collection with an instance into the DB
+use myNewDB
+db.myNewCollection1.insertOne( { x: 1 } ). 
+
+# create a new collection
+db.createCollection(collection_name)
+
+# capped collections 
+db.createCollection( collection_name, {
+  capped: true, # optional param if specified true,need to specify size
+  size: 200
+})
+
+# clustered collections
+db.runCommand( {
+   create: "products",
+   clusteredIndex: { "key": { _id: 1 }, "unique": true, "name": "products clustered key" }
+})
+# Same as the above command
+db.createCollection(
+   "stocks",
+   { clusteredIndex: { "key": { _id: 1 }, "unique": true, "name": "stocks clustered key" } }
+)
 ```
 
 
@@ -161,6 +197,8 @@ const findDocuments = function(db, callback) {
   collection.find({$or: [{field1: value1}, {field2: value2}]})
 }
 ```
+**Note**: use `$elemMatch` when searching inside nested objects containing arrays of numbers / objects and use `$in` when searching at the top level with a set of array values. 
+
 ### Replace
 To replace, find and confirm the document to be replaced and then replace it.
 - find one document 

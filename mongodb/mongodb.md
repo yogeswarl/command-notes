@@ -141,7 +141,7 @@ db.createCollection(
 
 ## CRUD Operations
 ### Insert
-- Insert a single document
+- Insert a single/Multiple document(s)
 ``` js
 const insertDocuments = function(db, callback) {
   // Get the documents collection
@@ -195,6 +195,10 @@ const findDocuments = function(db, callback) {
   collection.find({field1: value1, field2: value2})
   // Find documents with or
   collection.find({$or: [{field1: value1}, {field2: value2}]})
+  //Find documents with and together with or
+  collection.find({field1:value1,$or:[{field2:{$lt:value}},{field3:/^p/}]}) // /^p/ is pattern matching which finds every field3 with a value starting with "p"
+  //Find documents with and together with or (Regex equivalent of pattern matching)
+  collection.find({field1:value1,$or:[{field2:{$lt:value}},{field3:{$regex:'^p'}}]}) // /^p/ is pattern matching which finds every field3 with a value starting with "p"
 }
 ```
 **Note**: use `$elemMatch` when searching inside nested objects containing arrays of numbers / objects and use `$in` when searching at the top level with a set of array values. 
@@ -259,6 +263,22 @@ collection.deleteOne({field: value})
 ``` js
 const collection = db.collection('documents');
 collection.deleteMany({field: value})
+```
+### BulkWrite
+- Perform multiple CRUD operations at once.
+``` js
+const collection = db.collection('documents');
+collection.bulkWrite(
+   [
+      { insertOne : document },
+      { updateOne : document },
+      { updateMany : document },
+      { replaceOne : document },
+      { deleteOne : document },
+      { deleteMany : document }
+   ],
+   { ordered : false }  // Ordered false will not maintain the order in which the bulkwrite will perform.
+)
 ```
 
 ### Sorting and limiting query results

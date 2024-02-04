@@ -239,6 +239,98 @@ collections.updateOne({ _id: ObjectId("5e8f8f8f8f8f8f8f8f8f8f8") }, { $push: { f
 ``` js
 collection.updateOne({field: value},{$set: {field2: value2}},{upsert: true})
 ```
+- Update documents and create a default value for fields that are not present. 
+``` js
+
+collection.updateMany( {field1: value}, //if left empty, all documents are updated
+  [
+    { $replaceRoot: { newRoot:
+      { $mergeObjects: [ { field1: defaultValue, field2: defaultValue, field3: defaultValue, field4: defaultValue }, "$$ROOT" ] }
+    } },
+    { $set: { modified: "$$NOW"}  }
+]
+)
+
+
+```
+- Example of Update Many with $set using aggregation pipelines
+Collection: Example
+``` js
+[
+  {
+    _id: 1,
+    tests: [ 95, 92, 90 ],
+    modified: ISODate('2019-01-01T00:00:00.000Z')
+  },
+  {
+    _id: 2,
+    tests: [ 94, 88, 90 ],
+    modified: ISODate('2019-01-01T00:00:00.000Z')
+  },
+  {
+    _id: 3,
+    tests: [ 70, 75, 82 ],
+    modified: ISODate('2019-01-01T00:00:00.000Z')
+  }
+]
+```
+
+The following example sets the key `average` as truncated version of the average marks of test. Then sets the grade with a switch statement using various branches for marks and a grade to be assigned.
+
+``` js
+db.students3.updateMany(
+  { },
+  [
+    { $set: { average : { $trunc: [ { $avg: "$tests" }, 0 ] }, modified: "$$NOW" } },
+    { $set: { grade: { $switch: {
+                        branches: [
+                            { case: { $gte: [ "$average", 90 ] }, then: "A" },
+                            { case: { $gte: [ "$average", 80 ] }, then: "B" },
+                            { case: { $gte: [ "$average", 70 ] }, then: "C" },
+                            { case: { $gte: [ "$average", 60 ] }, then: "D" }
+                        ],
+                        default: "F"
+    } } } }
+  ]
+)
+```
+
+- Example of updateMany with $addFields using Aggregation Pipelines
+Collection: Example
+``` js
+[
+  {
+    _id: 1,
+    date: ISODate('2019-06-23T00:00:00.000Z'),
+    tempsC: [ 4, 12, 17 ]
+  },
+  {
+    _id: 2,
+    date: ISODate('2019-07-07T00:00:00.000Z'),
+    tempsC: [ 14, 24, 11 ]
+  },
+  {
+    _id: 3,
+    date: ISODate('2019-10-30T00:00:00.000Z'),
+    tempsC: [ 18, 6, 8 ]
+  }
+]
+```
+
+The following example uses `$addFields` to add a new field to calculate temperature using the celcius value. 
+``` js
+db.temperatures.updateMany( { },
+  [
+    { $addFields: { "tempsF": {
+          $map: {
+             input: "$tempsC",
+             as: "celsius",
+             in: { $add: [ { $multiply: ["$$celsius", 9/5 ] }, 32 ] }
+          }
+    } } }
+  ]
+)
+```
 ### find and modify
  - find and modify a document
  ``` js

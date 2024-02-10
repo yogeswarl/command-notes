@@ -414,6 +414,13 @@ collection.countDocuments({field: {$elemMatch: {field: value}}})
 ``` js
 const collection = db.collection('documents');
 collection.aggregate([{$match: {field: value}},{$group: {_id: "$field", count: {$sum: 1}}},{$sort: {count: -1}}])
+collection.aggregate(
+   [
+     { $match: { $text: { $search: "text to search" } } },
+     { $sort: { score: { $meta: "textScore" } } }, // use the Meta textScore to get a score. 
+     { $project: { title: 1, _id: 0 } } // Project only the title and id.
+   ]
+)
 ```
 - `$sort` and `$limit` can be used to sort and limit the results
 ``` js
@@ -443,6 +450,11 @@ collection.aggregate([{$match:{field:{$gte: value}}},{$out: "newCollection"}])
 ```
 
 ### indexes
+- analyse query performance by chaining the cursor.explain("executionStats")
+``` js
+const collection = db.collection('documents');
+collection.find({field:value}).explain('executionStats'); // if there is an index the scan will denote a 'IXSCAN' else a 'COLLSCAN'
+```
 - get the number of indexes used
 ``` js  
 const collection = db.collection('documents');
@@ -470,3 +482,18 @@ collection.dropIndex(['indexName1', 'indexName2']) // drop multiple indexes
 collection.dropIndex({field1: 1, field2: -1}) // delete index by key
 collections.deleteIndexes() // delete all indexes except the default index on _id
 ```
+- **NOTE** Although indexes improve query performance, adding an index has negative performance impact for write operations. For collections with a high write-to-read ratio, indexes are expensive because each insert must also update any indexes.
+
+## Query Optimisation
+- Create an Index to Support Read Operations. 
+If your application queries a collection on a particular field or set of fields, then an index on the queried field or a compound index on the set of fields can prevent the query from scanning the whole collection to find and return the query results.
+- Query Selectivity
+Query selectivity refers to how well the query predicate excludes or filters out documents in a collection. Query selectivity can determine whether or not queries can use indexes effectively or even use indexes at all.
+- Covered Query
+An index covers a query when all of the following apply:
+  - all the fields in the query are part of an index, and
+  - all the fields returned in the results are in the same index.
+  - no fields in the query are equal to null (i.e. {"field" : null} or {"field" : {$eq : null}} ).
+If an `explain` method has an `IXSCAN` stage without a `fetch` method it is a covered query
+
+- db.currentOp() method reports the current operations running on instances

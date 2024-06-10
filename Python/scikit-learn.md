@@ -32,6 +32,14 @@ predictions = model.predict(X_new)
 - Predict the label of a data point by 
   - Looking at the `K` closest labeled data points.
   - Taking a majority vote.
-  
 
+``` Python
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
 
+knn = KNeighborsClassifier(n_neighbors=6)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=21, stratify=y)
+knn.fit(X_train, y_train)
+y_pred = knn.predict(X_test, y_test)
+knn.score(X_test, y_test)
+```

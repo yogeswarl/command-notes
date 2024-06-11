@@ -43,3 +43,24 @@ knn.fit(X_train, y_train)
 y_pred = knn.predict(X_test, y_test)
 knn.score(X_test, y_test)
 ```
+
+## Model 2:
+### Linear Regression
+- Fit a linear model to the data.
+- Minimize the sum of the squared errors.
+- Linear regression Models can be used to make predictions from a single feature
+- To make predections use the reshape method to convert the data into a 2D array.
+
+
+``` Python
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+reg = LinearRegression()
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+reg.fit(X_train, y_train)
+y_pred = reg.predict(X_test)
+reg.score(X_test, y_test)
+```
+
+

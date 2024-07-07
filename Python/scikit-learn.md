@@ -62,5 +62,61 @@ reg.fit(X_train, y_train)
 y_pred = reg.predict(X_test)
 reg.score(X_test, y_test)
 ```
+### R&sup2; Score
+- Quantifies the variance in target values explained by the features
+- Values range from 0 to 1
+### RMSE (Root Mean Squared Error)
+- Measures the difference between the predicted values and the actual values.
+- Lower values of RMSE indicate a better fit.
+
+``` Python
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+
+rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+r2 = r2_score(y_test, y_pred)
+```
+
+### Cross-Validation
+- More folds more computationally expensive.
+
+``` Python
+from sklearn.model_selection import cross_val_score,KFold
+kf = KFold(n_splits=5, shuffle=True, random_state=1)
+reg = LinearRegression()
+cv_results = cross_val_score(reg, X, y, cv=kf)
+
+# evaluating cross validation
+
+print(cv_results)
+
+print(np.mean(cv_results), np.std(cv_results))
+
+print(np.quantile(cv_results, [0.25, 0.75]))
+```
+
+### Assessing Model Performance
+- Overfitting: Model performs well on the training set but poorly on the test set.
+- Underfitting: Model performs poorly on the training set and poorly on the test set.
+- Model Complexity: The more complex the model, the more likely it will overfit.
+
+### Regularization
+- Regularization is a technique used to prevent overfitting by penalizing large coefficients.
+- Lasso (L1) Regularization: Adds the absolute value of the magnitude of coefficients to the cost function.
+- Ridge (L2) Regularization: Adds the squared value of the magnitude of coefficients to the cost function.
+
+``` Python
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import Ridge
+
+lasso = Lasso(alpha=0.1)
+ridge = Ridge(alpha=0.1)
+lasso.fit(X, y)
+ridge.fit(X, y)
+lasso_coef = lasso.coef_
+ridge_coef = ridge.coef_
+```
+
+
 
 

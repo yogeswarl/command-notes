@@ -42,6 +42,11 @@
 - `:set number`: show line numbers
 - `:set scrolloff=8`: keep 8 lines above and below the cursor
 - `mB`: mark the current line with a marker `B`. This can later be accessed by `'B`
+- `:marks`: show all the markers
+- `:reg`: show all the registers
+- `:reg a`: show the content of register `a`
+- `ctrl + o`: go to the previous location
+- `ctrl + i`: go to the next location
 
 
 # vimrc file setup

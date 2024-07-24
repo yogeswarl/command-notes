@@ -117,6 +117,48 @@ lasso_coef = lasso.coef_
 ridge_coef = ridge.coef_
 ```
 
+### Metrics
+``` Python
+from sklearn.metrics import classification_report, confusion_matrix
+knn = KNeighborsClassifier(n_neighbors=6)
 
+# Fit the model to the training data
+knn.fit(X_train,y_train)
+
+# Predict the labels of the test data: y_pred
+y_pred = knn.predict(X_test)
+
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+```
+- Precision: The number of true positives divided by the number of true positives plus the number of false positives.
+- Recall: The number of true positives divided by the number of true positives plus the number of false negatives.
+- F1 Score: The harmonic mean of precision and recall.
+- Support: The number of samples of the true response that lie in that class.
+
+- Probablities of the predictions can be obtained using the `predict_proba()` method.
+
+``` Python
+y_pred_prob = knn.predict_proba(X_test)[:,1]
+```
+
+- Generate an ROC curve using the `roc_curve()` function.
+
+``` Python
+from sklearn.metrics import roc_curve, roc_auc_score
+fpr, tpr, thresholds = roc_curve(y_test, y_pred_probs)
+roc_auc_score(y_test, y_pred_probs)
+```
+
+### Hyperparameter Tuning
+``` Python
+from sklearn.model_selection import GridSearchCV
+param_grid = {"alpha": np.linspace(0.00001, 1,20)}
+lasso_cv = GridSearchCV(lasso, param_grid, cv=kf)
+lasso_cv.fit(X_train,y_train)
+
+print("Tuned lasso paramaters: {}".format(lasso_cv.best_params_))
+print("Tuned lasso score: {}".format(lasso_cv.best_score_))
+```
 
 

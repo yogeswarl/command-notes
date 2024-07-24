@@ -56,3 +56,11 @@
 let mapleader = " "
 nnoremap <leader>pv :Vex<CR> # creates a vertical split on click of `space+pv`
 ```
+- `plugin installation`: basic example
+``` Shell
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'nordtheme/vim'
+call plug#end()
+```

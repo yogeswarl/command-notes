@@ -37,8 +37,11 @@
 - `A`: Enter insert mode at the end of the line.
 - `o`: Enter insert mode on the next line.
 - `O`: Enter insert mode on the previous line.
-
-# commands in visual mode
+- `q<letter>`: Inserts into Macro Mode. Can be used to perform the same thing again and again. To close the Macro, Press `q`.
+- `@<letter>`: Perform the Macro. 
+- `_`: go to the start of line that's a non-whitespace character.
+- `$`: go to the end of the line that's a non-whitespace character.
+## commands in visual mode
 - `:set number`: show line numbers
 - `:set scrolloff=8`: keep 8 lines above and below the cursor
 - `mB`: mark the current line with a marker `B`. This can later be accessed by `'B`
@@ -49,7 +52,7 @@
 - `ctrl + i`: go to the next location
 
 
-# vimrc file setup
+## vimrc file setup
 - `colorsheme *name*`: create a color scheme to use with vim. 
 - `create map bindings`: use mapleader to let vim know that on press of these commands it should execute a command
 ``` shell

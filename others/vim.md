@@ -41,6 +41,10 @@
 - `@<letter>`: Perform the Macro. 
 - `_`: go to the start of line that's a non-whitespace character.
 - `$`: go to the end of the line that's a non-whitespace character.
+- `dt"`: Delete till `"` sign. Used to delete till a character
+- `f"`: move forward till `"` sign.
+- `d$`: delete till end of line
+-
 ## commands in visual mode
 - `:set number`: show line numbers
 - `:set scrolloff=8`: keep 8 lines above and below the cursor

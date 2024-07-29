@@ -43,8 +43,8 @@
 - `$`: go to the end of the line that's a non-whitespace character.
 - `dt"`: Delete till `"` sign. Used to delete till a character
 - `f"`: move forward till `"` sign.
-- `d$`: delete till end of line
--
+- `d$`: delete till end of line.
+- `d_`: Delete till start of line.
 ## commands in visual mode
 - `:set number`: show line numbers
 - `:set scrolloff=8`: keep 8 lines above and below the cursor
@@ -71,3 +71,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'nordtheme/vim'
 call plug#end()
 ```
+
+## Easy macros
+- `Increment/Decrement a number by one`: create a macro to increment a number by one
+    - `q<letter/num>` to start a macro.
+    - copy a line.
+    - paste it below.
+    - `C-a` to increment a number.
+    - `C-x` to decrement a number.
+    - `q` again to end the macro
+    - `@<letter/num>` to call the macro

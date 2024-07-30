@@ -1,4 +1,5 @@
 # VIM - Vi IMproved
+
 ## Introduction
 - Vim is a text editor that is the next version of the vi editor.
 - Vim is a highly configurable text editor built to enable efficient text editing.
@@ -19,6 +20,7 @@
 - `b`: Move cursor to the beginning of the previous word.
 - `e`: Move cursor to the end of the next word.
 - `x`: Delete the character under the cursor.
+- `s`: Delete the character under the cursor and go into `insert mode`.
 - `dd`: Delete the current line.
 - `u`: Undo the last change.
 - `v`: Enter visual mode.
@@ -41,10 +43,21 @@
 - `@<letter>`: Perform the Macro. 
 - `_`: go to the start of line that's a non-whitespace character.
 - `$`: go to the end of the line that's a non-whitespace character.
-- `dt"`: Delete till `"` sign. Used to delete till a character
+- `0` - go to the start of line inclusive of non-whitespace character
 - `f"`: move forward till `"` sign.
-- `d$`: delete till end of line.
+- `;`: move to the next found character.
+- `,`: move back to the previous found character.
+- `t<alphanum>`: move till the `alphanum` character.
+- `F<alphanum>`: move backward onto the found `alphanum`. motions to move are reversed. 
+- `T<alphanum>`: move backward until the found `alphanum`.
+- `d$`: delete from cursor to end of line. **short hand** use `D`
 - `d_`: Delete till start of line.
+- `dG`: Delete from cursor to end of buffer.
+- `dt"`: Delete till `"` sign. Used to delete till a character.
+- `S`: Delete the line you are on and go into `insert mode`.
+- `c<num><move>` : Delete num lines in `h`,`j`,`k`, or `l` direction
+- `<C-u/d>`: `<C-u>` will move half page up, `<C-d>` will move half page down
+- `{/}`: move up/down till empty space.
 ## commands in visual mode
 - `:set number`: show line numbers
 - `:set scrolloff=8`: keep 8 lines above and below the cursor
@@ -54,8 +67,13 @@
 - `:reg a`: show the content of register `a`
 - `ctrl + o`: go to the previous location
 - `ctrl + i`: go to the next location
-
-
+- `di{`: delete the insides of a curly brace
+- `V + % + d"`: delete everything from the start to end of a curly brace
+- `vi{`: select everything on the inside of a curly brace
+- `va{`: select everything including the curly braces. `{` can be replaced with anything that has matching open/close. 
+- `vi{V`: if somewhere in the middle of a function. do `vi/va` to chose and `V` to enter visual line mode to select the top most line. use motions `y`, `d` to copy or delete the line. 
+- `viw/W`- choose within for `w`, choose the whole word until non-whitespace `W`. 
+-
 ## vimrc file setup
 - `colorsheme *name*`: create a color scheme to use with vim. 
 - `create map bindings`: use mapleader to let vim know that on press of these commands it should execute a command

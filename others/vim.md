@@ -99,3 +99,8 @@ call plug#end()
     - `C-x` to decrement a number.
     - `q` again to end the macro
     - `@<letter/num>` to call the macro
+
+
+## Files Mode
+- Vim has a built in file viewer that can be used from command `:Ex`.
+- `%` will let you create new files in the structure and open it. 

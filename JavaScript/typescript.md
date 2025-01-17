@@ -81,6 +81,33 @@ let contact: Contact = {
 }
 ```
 
+An interface can be overwritten and it will apply to all the places the interface is used
+```ts
+// File test.ts
+interface Contact {
+  name: string;
+  phone: number;
+  email: string;
+}
+
+// File test2.ts
+interface Contact {
+  address: string;
+}
+```
+The above code will mean, in both files. the interface will have the properties `name, phone, email, and address`.
+## Declare
+We can also add interfaces globally to be accessible from anywhere. A special keyword `declare` is used to declare a global interface.
+```ts
+declare global {
+  interface Contact {
+    address: string;
+  }
+}
+```
+The above code will add the property `address` to the `Contact` interface globally. it can be used anywhere in the project.
+## Enum
+
 Typescript offers a feature to create a variable that can consist of only a certain set of values. This is done with the `enum` keyword.
 
 **Usage:**
@@ -89,6 +116,8 @@ enum Color {Red, Green, Blue}; // Color is now a type that can only have the val
 let color: Color = Color.Red; // color can only be Red, Green, or Blue
 ```
 
+
+## Type
 **Type alias** is defined with the `type` keyword followed by a variable name to reference it to a normal type.
 
 **Usage:**
@@ -104,9 +133,13 @@ Types can also have different interfaces or different types together:
 type ContactBirthDate  = Date | string;
 type AddressableContact = Contact & Address;
 ```
-```
-```
 
+**Difference between `type` and `interface`**:
+- types cannot be used with classes, as it can support only primitive types.
+- interfaces can be used with classes, as it can support complex types.
+
+
+### Using types with Functions
 **Functions** can also have a type safe mechanism.
 **Example:**
 ```ts
@@ -141,6 +174,7 @@ const b: Contact = clone<Contact,Contact>(a);
 
 From the above example, Typescript infers the type of the argument and return type from the function call. So we can omit the type in the function call.
 
+## Keyof
 
 `keyof` is used to get the keys that are only available in an object.
 **Example:**
@@ -158,6 +192,7 @@ function getValue<T,U extends keyof T>(source: T, key: keyof U):  {
 const getKeyValue = getValue<Contact, ContactField>(contact, 'name');
 ```
 
+## typeof
 You can use the javascript `typeof` operator to get the type of a variable. But in typescript you can simply use the `typeof` keyword to make sure any variable follows the same type.
 ```ts
 const myNum = {min: 1, max: 5}
@@ -191,7 +226,7 @@ function handleEvent<T extends keyof contactEvents>(eventName: T, handler: (evt 
 }
 ```
 
-Some more typescript features for dynamic type setting:
+## Some more typescript features for dynamic type setting:
 
 `Record`: Used to create a type with a set of properties of a certain type.
 ```ts

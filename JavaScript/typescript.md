@@ -138,7 +138,14 @@ type AddressableContact = Contact & Address;
 - types cannot be used with classes, as it can support only primitive types.
 - interfaces can be used with classes, as it can support complex types.
 
-
+### Recursive Types
+Typescript supports recursive types. A recursive type is a type that refers to itself. This is useful when defining a tree-like structure.
+**Example:**
+```ts
+type nestedNumbers = number | nestedNumbers[];
+let numbers: nestedNumbers = [1, [2, [3, 4], 5], 6];
+```
+ 
 ### Using types with Functions
 **Functions** can also have a type safe mechanism.
 **Example:**

@@ -232,6 +232,26 @@ function handleEvent<T extends keyof contactEvents>(eventName: T, handler: (evt 
   } 
 }
 ```
+## Declaring a module 
+```ts
+// module-name.d.ts
+declare module 'module-name' {
+  export function functionName(): void;
+}
+```
+
+## Callables
+Use the `Callable` interface to define a function that can be called.
+``` ts
+interface ITwoNumberCalculation {
+  (a: number, b: number): number
+}
+
+type TwoNumberCalc = (a: number, b: number) => number;
+
+const add: ITwoNumberCalculation = (a, b) => a + b;
+const subtract: TwoNumberCalc = (a, b) => a - b;
+```
 
 ## Some more typescript features for dynamic type setting:
 

@@ -136,7 +136,10 @@ type AddressableContact = Contact & Address;
 
 **Difference between `type` and `interface`**:
 - types cannot be used with classes, as it can support only primitive types.
+- types cannot be redeclared. 
+- types can be used with unions and intersections.
 - interfaces can be used with classes, as it can support complex types.
+- interfaces can be redeclared.
 
 ### Recursive Types
 Typescript supports recursive types. A recursive type is a type that refers to itself. This is useful when defining a tree-like structure.

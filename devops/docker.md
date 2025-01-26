@@ -23,6 +23,24 @@ docker start -a <container-id> #first 3 letter should do.
 - the Short way
 ```bash
 docker run -it --rm -p 8080:80 nginx
+# -it starts the container in interactive mode
+# --rm removes the container after it exits
+# -p binds the container port to the host port
+```
+
+- run a container in the background
+```bash
+docker run -d <image-name> # -dit for detached interactive mode. -d is detached mode
+```
+
+- search for an image
+```bash
+docker search <image-name>
+```
+
+- restart a container
+```bash
+docker restart <container-id>
 ```
 
 - get logs
@@ -50,6 +68,16 @@ docker build -t <docker-id>/<repo-name>:latest -f app.DockerFile .  # use a cust
 - get an interactive bash
 ```bash
 docker exec -it <container-id> bash
+```
+
+- pause a container 
+```bash
+docker pause <container-id> #or name of the container
+```
+
+- unpause a container
+```bash
+docker unpause <container-id> #or name of the container
 ```
 
 - stop a container 
@@ -99,7 +127,10 @@ docker run --rm --entrypoint  sh -v /tmp/container/sample_file.txt:/tmp/hello.tx
 ``` 
 **Always map a volume to a directory, not a file.**
 
-
+- using environment variables
+```bash
+docker run -e key=value <image-name>
+```
 - Login to docker hub and push an image to the registry
 *Best practice*: Name your image with your docker id and the repo name with a versioning tag.
 `format` = <docker-id>/<repo-name>:<version>
@@ -130,4 +161,70 @@ docker inspect <container-id> # get info about the container
 - use docker top to get the top command executed inside your container
 ```bash 
 docker top <container-id> # get the running processes in the container
+```
+
+## Docker networks
+- create a network
+```bash
+docker network create --driver=bridge <network-name>
+```
+- list networks
+```bash
+docker network ls
+```
+- connect a container to a network
+```bash
+docker network connect <network-name> <container-id>
+```
+
+## Docker file
+- Docker runs by layers. if the any layer is changed, all the other layers after it are rebuilt.
+- A potential solution to avoid that for node or other languages is to copy the build files first and run the build command before copying the rest of the command.
+``` DockerFile
+# use an official ubuntu latest image
+FROM node:20
+
+# set the working directory
+WORKDIR /app
+
+#copy and install node
+COPY package*.json /app
+
+# install dependencies
+RUN npm ci
+
+# COPY the current directory to the container directory
+COPY . /app
+
+# expose the port
+EXPOSE 3000
+
+# run the app
+CMD ["node", "app.js"] 
+``` 
+- use a .dockerignore file to ignore files that should not be copied to the container ( similar to .gitignore)
+
+### Multi stage dockerFile
+- use multi-stage dockerfile to reduce the size of the final image
+- the final image will be small since it will only contain the final build files
+- *note*: npm is not required in the final stage as it is of no use in a production environment.
+``` DockerFile
+# build step
+FROM node:20 as builder
+
+RUN mkdir /build
+WORKDIR /build
+COPY package*.json /build
+RUN npm ci
+COPY . .
+
+# production step
+FROM alpine:3.19
+RUN apk add --update nodejs
+RUN addgroup -s node && adduser -S node -G node
+USER node
+RUN mkdir /app
+WORKDIR /app
+COPY --from=builder /build .
+CMD ["node", "app.js"]
 ```

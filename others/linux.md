@@ -39,6 +39,24 @@
 - `mkdir /path/to/create{,64}` - creates 2 folders called inside `/path/to/` called `create` and `create64`  
 - `cd /sys/fs/cgroup` - 
 
+## Man page usage
+- `j` goes one line down
+- `k` goes one line up
+- `d` goes one half page down
+- `u` goes one half page up
+- `/<term>` will search for term
+- `n` goes to next search term
+- `N` goes to prev search term
+
+``` markdown
+    bold text - type exactly as shown
+    italic text - replace with appropriate argument
+    [-abc] - any or all arguments within [ ] are optional
+    -a|-b - options delimited by | cannot be used together
+    argument ... - argument is repeatable
+    [expression] ... - entire expression within [ ] is repeatable
+```
+
 ## Create an unshared environment (namespace)
 - `apt-get install debootstrap -y`
 - `debootstrap --variant=minbase jammy /better-root` - install minbase variant of debian into `/better-root` folder
@@ -46,3 +64,4 @@
 - `mount -t proc none /proc`
 - `mount -t sysfs none /sys`
 - `mount -t tmpfs none /tmp`
+

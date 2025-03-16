@@ -79,3 +79,16 @@ git pull origin master # pull from the master branch of the origin remote reposi
 git config pull.rebase false # to enable rebasing - set to true
 git config pull.ff only # to enable fast-forwarding - set to true
 ```
+
+### rebase
+- a master branch named `main`
+- a development branch named `dev`
+- use rebase to bring move all your dev work upfront to the master if they have different times.
+- this allows for a fast forward with the master branch
+- this should be exectured from the `dev` branch
+``` sh
+
+git rebase main
+
+```
+

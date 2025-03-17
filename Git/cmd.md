@@ -91,4 +91,8 @@ git config pull.ff only # to enable fast-forwarding - set to true
 git rebase main
 
 ```
-
+### reflog
+- check all the places where head has been
+``` sh
+git reflog -n # get n lines of the reflog where head has been
+```

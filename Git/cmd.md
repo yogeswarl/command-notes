@@ -87,12 +87,17 @@ git config pull.ff only # to enable fast-forwarding - set to true
 - this allows for a fast forward with the master branch
 - this should be exectured from the `dev` branch
 ``` sh
-
 git rebase main
-
 ```
 ### reflog
 - check all the places where head has been
 ``` sh
 git reflog -n # get n lines of the reflog where head has been
+```
+### reset
+- use `--soft HEAD~1` to reset and keep the working tree of the commit as it is
+- use `--hard HEAD~1` to reset and clean the working tree.
+``` sh
+git reset --soft HEAD~1
+git reset --hard HEAD~1
 ```

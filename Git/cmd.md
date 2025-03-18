@@ -101,3 +101,10 @@ git reflog -n # get n lines of the reflog where head has been
 git reset --soft HEAD~1
 git reset --hard HEAD~1
 ```
+
+### rerere -"reuse recorded resolution"
+- it allows you to ask Git to remember how you've resolved a hunk conflict so that the next time it sees the same conflict, Git can resolve it for you automatically. 
+``` sh
+git config --local rerere.enabled true
+```
+

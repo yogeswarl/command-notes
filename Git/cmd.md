@@ -80,8 +80,7 @@ git push origin --force main #push forcefully
 
 ### Pull from a remote repository
 ``` sh
-git pull origin master # pull from the master branch of the origin remote repository
-git config pull.rebase false # to enable rebasing - set to true
+git pull origin master # pull from the master branch of the origin remote repository git config pull.rebase false # to enable rebasing - set to true
 git config pull.ff only # to enable fast-forwarding - set to true
 ```
 
@@ -112,6 +111,15 @@ git reset --hard HEAD~1
 ```
 
 
+
+### Tags
+```sh
+git tag <name> # to create
+git tag -d <name> # delete
+git tag # to list
+git checkout <tagname> # to checkout a tag
+
+```
 ## Advanced
 
 ### rerere -"reuse recorded resolution"

@@ -93,3 +93,35 @@ SELECT *
 FROM countries
   INNER JOIN economies
     USING(code)
+
+-- LEFT JOIN: results, where the resulting fields on the left may not have a matching field on the right
+SELECT * 
+FROM left_table
+LEFT JOIN right_table
+USING(table_id)
+
+-- RIGHT JOIN: results, where the resulting fields on the right may not have a matching field on the left
+SELECT * 
+FROM left_table
+RIGHT JOIN right_table
+USING(table_id)
+
+-- FULL JOIN: results, where the resulting fields returns every possible match on a given id from both the left and right table
+SELECT * 
+FROM left_table
+FULL JOIN right_table
+USING(table_id)
+
+-- CROSS JOIN: returns a combination of all pairs between the two table 
+-- CROSS JOINS do not require ON 
+SELECT *
+FROM left_table
+CROSS JOIN right_table
+WHERE left_table.id ='value' AND right_table.id = 'value2'
+
+
+-- SELF JOIN: join a table to itself.
+SELECT * 
+FROM left_table lt
+INNER JOIN left_table lt2
+USING(id);

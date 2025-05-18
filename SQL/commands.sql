@@ -125,3 +125,30 @@ SELECT *
 FROM left_table lt
 INNER JOIN left_table lt2
 USING(id);
+
+-- SET Theories
+-- 1 . UNION: Take in all the values that available in either A or B, if duplicates are present, only one record is added.
+-- 2 . UNION ALL: Take in all the values that available in either A or B, , if duplicates are present, display both records.
+-- 3 . INTERSECT: , Take only the value that are present in both table.
+-- 4 . EXCEPT: Take only values that are in left table that are not in the right table.
+SELECT * 
+FROM left_table
+UNION 
+SELECT * FROM right_table;
+
+-- Subqueries
+-- Inside SELECT
+SELECT left_table.col,
+(SELECT right_table.col2 FROM right_table WHERE right_table.col = left_table.col) as right_table_Val
+FROM left_table;
+
+-- Inside WHERE
+SELECT left_tablae.col,
+FROM left_table 
+WHERE left_table.col IN (SELECT right_table.col FROM right_table WHERE right_table.col2 = '1998');
+
+-- Inside FROM
+SELECT col, sub.col
+FROM left_table,
+(SELECT count(*) FROM right_table WHERE right_table.col = left_table.col) AS sub
+WHERE left_table.col IN ('clause');

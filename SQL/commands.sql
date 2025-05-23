@@ -7,6 +7,44 @@
   -- ORDER BY always goes after GROUP BY
   -- in SQL, aggregate functions can't be used in WHERE clauses. 
   -- Field Names should be lowercase, no spaces and singular(because they indicate per record. )
+
+
+-- Meta Data for Tables and columns can be found in the information_schema table.
+-- Get all tables from the schema
+SELECT table_name 
+FROM information_schema.tables
+WHERE table_schema = 'schema_name';
+
+SELECT column_name, data_type 
+FROM information_schema.columns 
+WHERE table_name = 'table_name' AND table_schema = 'schema_name';
+
+-- Table CRUD
+-- Create
+CREATE TABLE IF NOT EXISTS table_name (
+  column_name data_type
+);
+
+-- Alter
+-- Add column
+ALTER TABLE table_name 
+ADD COLUMN column_name data_type;
+-- rename column
+ALTER TABLE table_name
+RENAME COLUMN column_name TO column_name2;
+-- drop column
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+-- insert 
+-- insert normally
+INSERT INTO table_name (col1,col2)
+VALUES (col1_value,col2_value), (col1_value,col2_value);
+-- insert from another table
+INSERT INTO table_name 
+SELECT DISTINCT col1, col2
+FROM table_name2;
+
 -- REFERENCES!!!!
 -- Select single/multiple columns
 SELECT col1,col2,... FROM Table_Name;

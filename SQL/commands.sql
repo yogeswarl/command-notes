@@ -45,6 +45,11 @@ INSERT INTO table_name
 SELECT DISTINCT col1, col2
 FROM table_name2;
 
+-- aggregating unmatching data types
+-- assume col1 is integer and col2 is text
+SELECT col1 + CAST(col2 as INTEGER) AS col_sum
+FROM table_name;
+
 -- REFERENCES!!!!
 -- Select single/multiple columns
 SELECT col1,col2,... FROM Table_Name;
@@ -190,3 +195,27 @@ SELECT col, sub.col
 FROM left_table,
 (SELECT count(*) FROM right_table WHERE right_table.col = left_table.col) AS sub
 WHERE left_table.col IN ('clause');
+
+-- Views
+CREATE VIEW view_name AS
+SELECT * FROM table;
+
+-- REDEFINE A VIEW
+CREATE OR REPLACE VIEW view_name AS new_query
+
+-- GET ALL VIEWS
+SELECT * FROM information_schema.views;
+
+-- granting and revoking access to views
+REVOKE INSERT, UPDATE ON view_name FROM PUBLIC;
+GRANT INSERT, UPDATE ON view_name TO user;  
+-- DROP VIEW
+DROP VIEW view_name [ CASCADE | RESTRICT ];
+  -- RESTRICT (Default): returns an error, if there are objects that are depend on the view
+  -- CASCADE: drop view and any object that depends on that view.
+
+-- MATERIALIZED VIEW used to store and need to refreshed to compute results.
+CREATE MATERIALIZED VIEW view_name AS
+SELECT * FROM TABLE;
+
+REFRESH MATERIALIZED VIEW view_name
